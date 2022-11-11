@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <app-user-tray></app-user-tray>
+</mat-toolbar>
+
+<mat-card>
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>login</mat-label>
+        <input matInput placeholder="type your login" formControlName="login">
+      </mat-form-field>
+    
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>password</mat-label>
+        <input type="password" matInput placeholder="pype tour yassword" formControlName="password">
+      </mat-form-field>
+
+      <button mat-stroked-button color="primary" type="submit" [disabled]="!loginForm.valid">login</button>
+    </form>
+
+  </mat-card>
+  <!-- Add Content Here -->
+  <button mat-button (click)="tokenTest()">tokentest</button>
+  <button mat-button (click)="logout()">logout</button>

@@ -1,0 +1,40 @@
+app
+    core
+        models
+        services
+    shared
+        navigationComponent
+        userMenuComponent - prawy gorny rog z pamperkiem
+        trainingListComponent - dumb, kurde moglby byc dzielony w myClients i  modziul
+        trainingTileComponent - dumb
+    login modul
+        pages
+                loginRegisterComponent
+    home modul
+        pages
+            welcome
+                welcomeComponent - stary home. kazdy taki component ma navigation ktory jest w sidnavie, czyli w kazdym comp jest sidenav i w nim comp nagiation-app
+    trainings modul
+        pages
+            mytrainings
+                myTrainingsComponent - smart
+            training
+                trainingComponent - smart - kalędorz
+            session
+                sessionComponent - smart
+    myAccount modul
+        pages
+            myAccountComponent
+    mytrainers modul
+        pages
+            mytrainers
+    myClients modul
+        pages
+            myCLients
+                myClientsComponent
+            clientstranings
+                clientsTrainingsComponent
+            clientsraining
+                trainingComponent
+            clientssession
+                sessionComponent

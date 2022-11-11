@@ -1,0 +1,35 @@
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  
+}
+.nav-list.handset {
+  justify-content: end;
+  flex-grow: 1;
+  text-align: right;
+}
+.nav-list.not-handset {
+  justify-content: start;
+}
+
+.nav-list-wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.nav-list-wrapper.handset{
+  flex-direction: row-reverse;
+}
+.toolbar.handset {
+  width: 56px;
+  height: 100%;
+  writing-mode: vertical-rl;
+  align-items: center;
+  justify-content: center;
+}

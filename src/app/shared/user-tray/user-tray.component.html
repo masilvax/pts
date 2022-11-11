@@ -1,0 +1,6 @@
+<button *ngIf="(loggedUser$ | async) as lu" mat-button [matMenuTriggerFor]="menu">{{lu.login}}</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item (click)="logout()">Logout</button>
+</mat-menu>
+    

@@ -1,0 +1,19 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  background: inherit;
+  border: none;
+}
+
+#nav-tgl-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 99;
+  border-radius: initial;
+  border-top-left-radius: 50%;
+  box-shadow: none;
+}
