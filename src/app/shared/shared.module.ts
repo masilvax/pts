@@ -10,13 +10,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { TrainingTileComponent } from './training-tile/training-tile.component';
 import { MatCardModule } from '@angular/material/card';
+import { LoadingComponent } from './loading/loading.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
   declarations: [
     NavigationComponent,
     UserTrayComponent,
-    TrainingTileComponent
+    TrainingTileComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -26,12 +29,14 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressBarModule
   ],
   exports: [
     NavigationComponent,
     UserTrayComponent,
-    TrainingTileComponent
+    TrainingTileComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule { }

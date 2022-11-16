@@ -22,7 +22,7 @@ export class LoginRegisterComponent implements OnInit {
         let isDark = res.theme ==='ciemny' ? true : false
         this.changeTheme(isDark) 
       }, 
-      error: (e) => {// tu nie wejdzie bo interceptor bledy ogarnia
+      error: (e) => {// tu nie wejdzie bo interceptor bledy ogarnia wiec trza zrobic zeby 401
         alert('BŁĄD: '+ e.message + ':: ' + e.error.text);
       },
       complete: () => console.info('complete')

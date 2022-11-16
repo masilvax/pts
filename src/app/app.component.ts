@@ -1,9 +1,11 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, DoCheck, HostBinding, /* HostBinding, */ Inject, OnChanges, OnInit, Renderer2 } from '@angular/core';
-import { map, Observable, shareReplay } from 'rxjs';
+import { ResolveEnd, ResolveStart, Router } from '@angular/router';
+import { delay, filter, map, merge, Observable, shareReplay, Subject } from 'rxjs';
 import { User } from './core/models/user';
 import { AuthService } from './core/services/auth.service';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +14,13 @@ import { AuthService } from './core/services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit/* , DoCheck */{
+
+/*   isLoading$!: Observable<boolean>
+  private _showLoaderEvents$!: Observable<boolean>
+  private _hideLoaderEvents$!: Observable<boolean> */
+
+  //loading: Subject<boolean> = this.load.isLoading;
+
   isDark = false;
   loggedUser$:Observable<User | null> = this.auth.userSubject
 
@@ -32,7 +41,14 @@ export class AppComponent implements OnInit/* , DoCheck */{
 
   //jedno i drugie powyżej działa. ALE: z getem i metodą mogę dynamicznie zmieniać w zalezności od zmiennej isDark, a bez tego muszę wpisać coś w klasaCss 
 
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private auth:AuthService, private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2,
+    private auth:AuthService,
+    //private load:LoadingService,
+    private breakpointObserver: BreakpointObserver,
+    //private router: Router
+    ) {}
 //   ngDoCheck(): void {
 //     let userr = this.auth.userSubject.value
 //     console.log(userr)
@@ -40,6 +56,19 @@ export class AppComponent implements OnInit/* , DoCheck */{
 //     this.changeTheme(this.isDark)    */ 
 //   }
   ngOnInit(): void {
+/* loader z resolvera z routingu */
+/*     this._showLoaderEvents$ = this.router.events.pipe(
+      filter((e) => e instanceof ResolveStart),
+      map(() => true)
+    );
+
+    this._hideLoaderEvents$ = this.router.events.pipe(
+      filter((e) => e instanceof ResolveEnd),
+      map(() => false)
+    );
+
+    this.isLoading$ = merge(this._hideLoaderEvents$, this._showLoaderEvents$) */
+
     this.isDark = this.auth.userSubject.value?.theme ==='ciemny' ? true : false
     this.changeTheme(this.isDark)
   }

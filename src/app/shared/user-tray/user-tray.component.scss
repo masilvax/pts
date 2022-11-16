@@ -1,3 +1,14 @@
 p {
     color:rebeccapurple
 }
+
+#user-tray-btn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 50;
+    border-radius: initial;
+    border-bottom-left-radius: 50%;
+    box-shadow: none;
+    background-color: black;
+}

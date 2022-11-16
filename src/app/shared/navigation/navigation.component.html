@@ -7,7 +7,7 @@
     <a mat-list-item style="text-align:right" [routerLink]="'login'" (click)="emitOutDrawerClose()">lodrz yn</a>
     <a mat-list-item [routerLink]="''" (click)="emitOutDrawerClose()">hołm</a>
     <a mat-list-item [routerLink]="''" (click)="emitOutDrawerClose()">Moje Konto</a>
-    <a mat-list-item [routerLink]="'trainings'" (click)="emitOutDrawerClose()">Moje Plany</a>
+    <a mat-list-item [routerLink]="'trainings'" (click)="emitOutDrawerClose()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Moje Plany</a>
     <a mat-list-item [routerLink]="''" (click)="emitOutDrawerClose()">Moi Trenerzy</a>
     <a *ngIf="(loggedUser$ | async)?.trainer" mat-list-item [routerLink]="''" (click)="emitOutDrawerClose()">Moi Klienci</a>
 

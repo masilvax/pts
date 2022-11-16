@@ -1,5 +1,6 @@
 export interface Training {
     id:number;
     nazwa:string;
-    ile_sesji:number;
+    ile_sesji?:number;
+    
 }

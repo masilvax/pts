@@ -1,3 +1,7 @@
+<app-loading></app-loading>
+
+<app-user-tray></app-user-tray>
+
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav"
     fixedInViewport
@@ -9,17 +13,13 @@
     <app-navigation (out)="drawer.toggle()"></app-navigation>
 
   </mat-sidenav>
-  <mat-sidenav-content>
-    <!--      <mat-toolbar>
+  <mat-sidenav-content [ngClass]="(isHandset$ | async) ? 'content-bottom-padding' : 'content-top-margin'">
 
-       <span>
-         <mat-slide-toggle (change)="onThemeChange($event)" [(ngModel)]="isDarkTheme"></mat-slide-toggle>
-       </span>
-     </mat-toolbar> -->
     <router-outlet></router-outlet>
-    <!-- <app-navigation (themeChanged)="changeTheme($event)" [isDarkTheme]="isDark"></app-navigation> -->
+
   </mat-sidenav-content>
 </mat-sidenav-container>
+
 <button id="nav-tgl-btn" type="button" aria-label="Toggle sidenav" mat-fab color="accent" (click)="drawer.toggle()"
   *ngIf="(isHandset$ | async) && (loggedBool$ | async)">
   <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>

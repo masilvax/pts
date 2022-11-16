@@ -1,6 +1,12 @@
-<button *ngIf="(loggedUser$ | async) as lu" mat-button [matMenuTriggerFor]="menu">{{lu.login}}</button>
-<mat-menu #menu="matMenu">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item (click)="logout()">Logout</button>
-</mat-menu>
-    
+<div *ngIf="(loggedUser$ | async) as lu" >
+    <button id="user-tray-btn" mat-fab [matMenuTriggerFor]="menu">
+        <mat-icon class="material-symbols-outlined" aria-label="Side nav toggle icon">skull</mat-icon>
+    </button>
+    <!-- <button id="nav-tgl-btn" type="button" aria-label="Toggle sidenav" mat-fab color="accent">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button> -->
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>{{lu.login}}</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+</div>

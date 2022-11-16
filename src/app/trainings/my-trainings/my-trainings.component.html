@@ -1,8 +1,6 @@
-<mat-toolbar>
-    <app-user-tray></app-user-tray>
-</mat-toolbar>
+<app-my-trainings-toolbar (addNewTrainingEvent)="addNew($event)"></app-my-trainings-toolbar>
 
-<main class="main-list" *ngIf="(myTrainings$ | async) as trainings">
+<main class="main-list" *ngIf="myTrainings$ | async as trainings">
     <div *ngFor="let t of trainings">
         <app-training-tile [training]="t"></app-training-tile>
     </div>

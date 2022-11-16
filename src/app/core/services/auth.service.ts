@@ -33,6 +33,10 @@ export class AuthService {
   }
 
   login(login:string, password:string):Observable<User> {
+
+    localStorage.removeItem('user');
+    this.userSubject.next(null);
+
     let akcja = 'login'
     return this.http.post<any>(this.ApiUrl+'/http_login.php',{akcja,login,password}).pipe(
 /*       catchError((e)=>{
@@ -41,19 +45,21 @@ export class AuthService {
         return of()
       }), */
       share(),
-      tap(({token,trainer,theme})=>{//destruktuyzacja
+      tap(({token,trainer,theme,error})=>{//destruktuyzacja
         let user: User = {
           login:login,
           token:token,
-          role:'',
           trainer:trainer,
-          theme:theme
+          theme:theme,
+          error:error
         }
-        localStorage.setItem('user',JSON.stringify(user))
-        this.userSubject.next(user);
-        this.router.navigate(['/'])
-        console.dir(localStorage.getItem('user'))
-        return user;
+        if(user.error){
+          alert(user.error)
+        }else{
+          localStorage.setItem('user',JSON.stringify(user))
+          this.userSubject.next(user);
+          this.router.navigate(['/'])
+        }
       })
     )
   }
