@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Add new training</h1>
+<div mat-dialog-content>
+  <!-- <p>type training name</p> -->
+  <mat-form-field appearance="outline">
+    <mat-label>training name</mat-label>
+    <input matInput [(ngModel)]="data" required="true">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial type="submit">Add</button>
+</div>
