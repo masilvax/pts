@@ -2,6 +2,6 @@
 
 <main class="main-list" *ngIf="myTrainings$ | async as trainings">
     <div *ngFor="let t of trainings">
-        <app-training-tile [training]="t"></app-training-tile>
+        <app-training-tile [training]="t" (deleteTrainingEvent)="deleteTraining($event)"></app-training-tile>
     </div>
 </main>

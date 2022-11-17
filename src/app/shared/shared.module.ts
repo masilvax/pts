@@ -12,6 +12,8 @@ import { TrainingTileComponent } from './training-tile/training-tile.component';
 import { MatCardModule } from '@angular/material/card';
 import { LoadingComponent } from './loading/loading.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     NavigationComponent,
     UserTrayComponent,
     TrainingTileComponent,
-    LoadingComponent
+    LoadingComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -30,13 +33,15 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
   ],
   exports: [
     NavigationComponent,
     UserTrayComponent,
     TrainingTileComponent,
-    LoadingComponent
+    LoadingComponent,
+    ConfirmDialogComponent
   ]
 })
 export class SharedModule { }

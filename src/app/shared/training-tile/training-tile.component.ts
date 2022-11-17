@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Training } from 'src/app/core/models/training';
 
 @Component({
@@ -11,5 +11,7 @@ export class TrainingTileComponent {
   constructor() { }
 
   @Input() training!:Training
+
+  @Output() deleteTrainingEvent: EventEmitter<Training> = new EventEmitter<Training>()
 
 }

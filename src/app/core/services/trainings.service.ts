@@ -21,10 +21,17 @@ export class TrainingsService {
     //return this.http.post<any>(this.ApiUrl + '/http_treningi.php',{akcja}).pipe(share())
   }
 
-  addNewTraining(training: Training): Observable<void> {
+  addNewTraining(training: Training): Observable<any> {
     let akcja = 'dodajTrening'
     return this.http.post<any>(this.ApiUrl+'/http_treningi.php',{akcja,training}).pipe(
       share()
     )
+  }
+
+  deleteTraining(id:number): Observable<any> {
+    //let params = new HttpParams()
+    //params.set('akcja','usunTrening')
+    //params.set('idTreningu',id)
+    return this.http.get(this.ApiUrl + '/http_treningi.php?akcja=usunTrening&id='+id)//get bo php nie umie puta i deleta
   }
 }
