@@ -14,13 +14,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MyTrainingComponent } from './my-training/my-training.component';
 
 
 @NgModule({
   declarations: [
     MyTrainingsComponent,
     MyTrainingsToolbarComponent,
-    DialogAddTrainingComponent
+    DialogAddTrainingComponent,
+    MyTrainingComponent
   ],
   imports: [
     CommonModule,

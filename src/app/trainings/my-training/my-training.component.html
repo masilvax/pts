@@ -1,0 +1,4 @@
+<div *ngIf="training$ | async as t">
+    <div>{{t.nazwa}} {{t | json}}</div>
+    <div *ngFor="let s of t.sesje">{{s.title}}</div>
+</div>

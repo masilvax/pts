@@ -13,11 +13,11 @@ export class TrainingsService {
 
   constructor(private http:HttpClient) { }
 
-  myTrainings():Observable<any> {
+  myTrainings():Observable<Training[]> {
     let params = new HttpParams().set('akcja','myTrainings')
     //params.append('akcja','myTrainings')
     //let akcja = 'myTrainings'
-    return this.http.get<any>(this.ApiUrl + '/http_treningi.php',{params: params}).pipe(share(),last())
+    return this.http.get<Training[]>(this.ApiUrl + '/http_treningi.php',{params: params}).pipe(share(),last())
     //return this.http.post<any>(this.ApiUrl + '/http_treningi.php',{akcja}).pipe(share())
   }
 
@@ -34,4 +34,12 @@ export class TrainingsService {
     //params.set('idTreningu',id)
     return this.http.get(this.ApiUrl + '/http_treningi.php?akcja=usunTrening&id='+id)//get bo php nie umie puta i deleta
   }
+/* ****************************** */
+  myTraining(id:number):Observable<Training>{
+/*     let params = new HttpParams()
+    params.set('akcja','myTraining')
+    params.set('id',id) */
+    return this.http.get<Training>(this.ApiUrl + '/http_treningi.php?akcja=myTraining&id='+id).pipe(share(),last())
+  }
+
 }
