@@ -21,6 +21,7 @@ import { SharedModule } from './shared/shared.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
     MatProgressBarModule,
     MatDialogModule,
     ReactiveFormsModule,
+    MatNativeDateModule,
     SharedModule
   ],
   providers: [

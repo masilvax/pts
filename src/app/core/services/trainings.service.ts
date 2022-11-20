@@ -35,11 +35,11 @@ export class TrainingsService {
     return this.http.get(this.ApiUrl + '/http_treningi.php?akcja=usunTrening&id='+id)//get bo php nie umie puta i deleta
   }
 /* ****************************** */
-  myTraining(id:number):Observable<Training>{
+  myTraining(id:number,data:string):Observable<Training>{
 /*     let params = new HttpParams()
     params.set('akcja','myTraining')
     params.set('id',id) */
-    return this.http.get<Training>(this.ApiUrl + '/http_treningi.php?akcja=myTraining&id='+id).pipe(share(),last())
+    return this.http.get<Training>(this.ApiUrl + '/http_treningi.php?akcja=myTraining&id='+id+'&data='+data).pipe(share(),last())
   }
 
 }

@@ -14,6 +14,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TrainingCalendarComponent,ExampleHeaderComponent } from './training-calendar/training-calendar.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     UserTrayComponent,
     TrainingTileComponent,
     LoadingComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TrainingCalendarComponent,
+    ExampleHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -34,14 +38,16 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatListModule,
     MatCardModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule
   ],
   exports: [
     NavigationComponent,
     UserTrayComponent,
     TrainingTileComponent,
     LoadingComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TrainingCalendarComponent
   ]
 })
 export class SharedModule { }

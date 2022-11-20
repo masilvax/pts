@@ -1,4 +1,12 @@
+<app-my-training-toolbar (addNewTrainingEvent)="addNew($event)"></app-my-training-toolbar>
+
 <div *ngIf="training$ | async as t">
     <div>{{t.nazwa}} {{t | json}}</div>
-    <div *ngFor="let s of t.sesje">{{s.title}}</div>
+    <div *ngFor="let s of t.sesje">{{s.title}} {{s.date}}</div>
+
+    <button (click)="changeMonth('next')">next</button>
+    <button (click)="changeMonth('prev')">prev</button>
+
+    <app-training-calendar></app-training-calendar>
+
 </div>

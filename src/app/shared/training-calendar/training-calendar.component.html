@@ -1,0 +1,17 @@
+<p>training-calendar works!</p>
+<div style="max-width: 90vh">
+    <mat-calendar
+      #calendar
+      (selectedChange)="select($event,calendar)"
+      [dateClass]="isSelected"
+      [headerComponent]="exampleHeader"
+    ></mat-calendar>
+  </div>
+  .mat-calendar-body-cell.selected
+  <pre>
+  {{daysSelected|json}}
+  </pre>
+  
+  <!-- Copyright 2019 Google LLC. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->
