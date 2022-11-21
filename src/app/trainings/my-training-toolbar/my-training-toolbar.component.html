@@ -1,15 +1,33 @@
-<mat-toolbar class="toolbar" [ngClass]="(isHandset$ | async) ? 'bottom-toolbar' : 'top-toolbar'" color="primary">
-    
-    <button (click)="addNewTrainingEvent.emit()" mat-icon-button aria-label="add new training">
-      <mat-icon>add</mat-icon>
-    </button>
-    
-    <button mat-icon-button aria-label="add new training">
-        <mat-icon>edit</mat-icon>
-    </button>
+<mat-toolbar *ngIf="!edit" class="toolbar" [ngClass]="(isHandset$ | async) ? 'bottom-toolbar' : 'top-toolbar'"
+  color="primary">
 
-    <button mat-icon-button aria-label="add new training">
-        <mat-icon>delete</mat-icon>
-    </button>
+  <button (click)="addNewTrainingEvent.emit()" mat-icon-button aria-label="add new training">
+    <mat-icon>add</mat-icon>
+  </button>
 
-  </mat-toolbar>
+  <button mat-icon-button aria-label="edit" (click)="toggleEdit()">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+  <button mat-icon-button aria-label="add new training">
+    <mat-icon>delete</mat-icon>
+  </button>
+
+</mat-toolbar>
+
+<mat-toolbar *ngIf="edit" class="toolbar" [ngClass]="(isHandset$ | async) ? 'bottom-toolbar' : 'top-toolbar'"
+  color="primary">
+
+  <button (click)="addNewTrainingEvent.emit()" mat-icon-button aria-label="add new training">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <button mat-icon-button aria-label="edit" (click)="toggleEdit()">
+    <mat-icon>cancel</mat-icon>
+  </button>
+
+  <button mat-icon-button aria-label="add new training">
+    <mat-icon>face</mat-icon>
+  </button>
+
+</mat-toolbar>

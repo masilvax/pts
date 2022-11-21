@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, map, Observable, switchMap } from 'rxjs';
 import { Training } from 'src/app/core/models/training';
@@ -7,7 +7,8 @@ import { TrainingsService } from 'src/app/core/services/trainings.service';
 @Component({
   selector: 'app-my-training',
   templateUrl: './my-training.component.html',
-  styleUrls: ['./my-training.component.scss']
+  styleUrls: ['./my-training.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyTrainingComponent implements OnInit {
 
@@ -19,24 +20,23 @@ export class MyTrainingComponent implements OnInit {
   //monthSelected$!:Observable<number>
   idichuj$!:Observable<number>
 
-  addNew(trainingName: string): void {}
-
-  changeMonth(direction: 'next' | 'prev'): void {
-    direction === 'next' ? this.monthSelectedSub$.next(++this.monthSelected) : this.monthSelectedSub$.next(--this.monthSelected)
-
-
-/*     this.training$ = this.monthSelectedSub$.pipe(
-      switchMap(selMonth => this.srvc.myTraining(4))
-    ) */
+  edit:boolean = false;
+  editFromChild(edit:boolean) {
+    this.edit = edit
+    console.log('EDYCJAAA: '+this.edit)
   }
 
-  
+  addNew(trainingName: string): void {}
+
+  changeMonthFromChild(month:number) {
+    console.log('miesiac: '+month)
+    this.monthSelectedSub$.next(month)
+  }  
 
   ngOnInit(): void {
 /*     this.training$ = this.activatedRoute.params.pipe(
       map((param) => param?.['id']),
       switchMap(id => this.srvc.myTraining(id))
-      
     ) */
 
     this.idichuj$ = this.activatedRoute.params.pipe(map((param)=> param?.['id']))

@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MyTrainingComponent } from './my-training/my-training.component';
 import { MyTrainingToolbarComponent } from './my-training-toolbar/my-training-toolbar.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { MyTrainingToolbarComponent } from './my-training-toolbar/my-training-to
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatCardModule,
     SharedModule
   ]
 })

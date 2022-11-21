@@ -19,6 +19,14 @@ export class MyTrainingToolbarComponent implements OnInit {
 
   @Output() addNewTrainingEvent: EventEmitter<string> = new EventEmitter<string>()
 
+  @Output() editEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
+  edit:boolean = false
+
+  toggleEdit(){
+    this.edit = !this.edit
+    this.editEvent.emit(this.edit)
+  }
+
   ngOnInit(): void {
   }
 

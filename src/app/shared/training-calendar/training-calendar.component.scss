@@ -1,0 +1,19 @@
+.mat-calendar-body-cell.selected {
+    background-color: red !important;
+    border-radius: 2px;
+  }
+  
+  .mat-calendar-body-cell.sessioned {
+    background-color: blue !important;
+    border-radius: 2px;
+  }
+
+  .calendar-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .calendar-container {
+    max-width: 85vh;
+    width: 100%;
+  }

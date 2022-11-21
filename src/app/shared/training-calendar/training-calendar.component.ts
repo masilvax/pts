@@ -1,22 +1,28 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import { Subject, takeUntil } from 'rxjs';
+import { TrainingSession } from 'src/app/core/models/training-session';
 
 @Component({
   selector: 'app-training-calendar',
   templateUrl: './training-calendar.component.html',
   styleUrls: ['./training-calendar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class TrainingCalendarComponent implements OnInit {
+export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
 
   exampleHeader = ExampleHeaderComponent;
   currentMonth: number = 0;
-  daysSelected: any[] = [{ date: '2022-11-25', text: 'terefere' }];
-  daysSessioned: any[] = [{ date: '2022-11-20', text: 'tęż tąrąfąrą' }];
-  edit: boolean = true;
+  daysSelected: any[] = [{ date: '2022-11-25', title: 'terefere' }];//to ma byc outputowane przy edycji
+
+  @Input() edit: boolean = false;
   //event: any;
+
+  @Output() changeMonthEvent:EventEmitter<number> = new EventEmitter<number>()
+
+  @Input() daysSessioned!: TrainingSession[]// = [{id:3, date: '2022-11-20', title: 'tęż tąrąfąrą' }];
 
   constructor() {}
 
@@ -24,11 +30,19 @@ export class TrainingCalendarComponent implements OnInit {
   onClick(trg: { dataset: { month: string; }; }) {
     if (trg.dataset.month === 'nextMonth') {
       this.currentMonth++;
+      this.daysSelected.splice(0,this.daysSelected.length);
       console.log('NEXT: ', this.currentMonth);
+      setTimeout(()=>{//zeby po zrenderowaniu kolejnego miesiaca w kalendarzu sie dane zaladowaly
+        this.changeMonthEvent.emit(this.currentMonth)
+      })
     }
     if (trg.dataset.month === 'prevMonth') {
       this.currentMonth--;
+      this.daysSelected.splice(0,this.daysSelected.length);
       console.log('PREV: ', this.currentMonth);
+      setTimeout(()=>{
+        this.changeMonthEvent.emit(this.currentMonth)
+      })
     }
   }
 
@@ -46,22 +60,13 @@ export class TrainingCalendarComponent implements OnInit {
     }
     if (this.daysSelected.find((x) => x.date == date)) {
       cssClass = 'selected';
+      console.log('moze tu wchodze?')
     }
     return cssClass;
   };
 
-  isSessioned = (event: any) => {
-    //to juz chyba sie nie przyda - poprawic w templatce
-    const date =
-      event.getFullYear() +
-      '-' +
-      ('00' + (event.getMonth() + 1)).slice(-2) +
-      '-' +
-      ('00' + event.getDate()).slice(-2);
-    return this.daysSessioned.find((x) => x == date) ? 'selected' : null;
-  };
-
   select(event: any, calendar: any) {
+    console.log('EDYCJA Z KLIKA W DZIEŃ: '+this.edit)
     const date =
       event.getFullYear() +
       '-' +
@@ -69,39 +74,54 @@ export class TrainingCalendarComponent implements OnInit {
       '-' +
       ('00' + event.getDate()).slice(-2);
 
-    const dateObj = { date: date, text: 'wer' };
+    const dateObj = { date: date, title: 'selected' };
 
-    const index = this.daysSelected.findIndex((x) => x.date == date);
-    if (index < 0) this.daysSelected.push(dateObj);
-    else this.daysSelected.splice(index, 1);
+    if(this.edit){
+      const index = this.daysSelected.findIndex((x) => x.date == date);
+      if (index < 0) this.daysSelected.push(dateObj);
+      else this.daysSelected.splice(index, 1);
 
-    calendar.updateTodaysDate();
-    setTimeout(() => {
-      //debugger
-      this.displayMonth();
-    });
+      calendar.updateTodaysDate();
+      setTimeout(() => {
+        //debugger
+        this.displayMonth();
+      });
+    }else{
+      const session:TrainingSession | undefined = this.daysSessioned.find((x) => x.date == date)
+      if(session){
+        console.log('znalazłem sesje: '+ session.id, session.title)
+      }else{
+        console.log('DODAJE NOWY')
+      }
+    }
   }
 
   displayMonth() {
-    //let elements = document.querySelectorAll(".endDate");
+    console.log('displejam mant')
+    console.dir(this.daysSelected)
     let x = document.querySelectorAll('.mat-calendar-body-cell');
-    console.dir(x);
     x.forEach((y) => {
-      const dateSearch = this.dateToString(
+      let dateSearch = this.dateToString(
         new Date(y.getAttribute('aria-label')!)
       );
-      //console.log(dateSearch)
-      const data = this.daysSelected.find((f) => f.date == dateSearch);
+      let data = this.daysSessioned.find((f) => f.date == dateSearch);
       if (data) {
         //y.setAttribute("data-text", data.text);
-        y.innerHTML =
-          '<div>' + y.innerHTML + '<br/><br/><br/>' + data.text + '</div>';
-        //console.log(y.getAttribute('data-text'));
+        y.innerHTML = '<div>' + y.innerHTML + '<br/><br/><br/>' + data.title + '</div>';
+        y.classList.add('sessioned')
+      }
+
+      let dataSel = this.daysSelected.find((f) => f.date == dateSearch);
+      console.log(dataSel)
+      if (dataSel) {
+        y.classList.remove('sessioned')
+        y.classList.add('selected')
+      }else{
+        y.classList.remove('selected')
       }
     });
   }
   dateToString(date: Date) {
-    //console.log(date)
     return (
       date.getFullYear() +
       '-' +
@@ -111,7 +131,20 @@ export class TrainingCalendarComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
+    if(!this.edit){
+      this.daysSelected.splice(0,this.daysSelected.length);
+      console.log('czyszcze selected')
+    }
+    setTimeout(() => {
+      //debugger
+      this.displayMonth();
+    });
+    console.log('Z AKLENDARZAAA: '+this.edit)
+  }
+
+  ngAfterViewInit(): void {
+    this.displayMonth()
   }
 
 }
@@ -166,7 +199,7 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
       .subscribe(() => cdr.markForCheck());
   }
 
-  //nie ma jak do parenta tego wtentegować
+  //nie ma jak do parenta tego wtentegować, dlatego w parencie jest hostlistener na klika. a guziki maja data-month="prevMonth" i "nextMonth"
   //@Output() monthEmit: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnDestroy() {
