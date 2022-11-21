@@ -32,7 +32,7 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
       this.currentMonth++;
       this.daysSelected.splice(0,this.daysSelected.length);
       console.log('NEXT: ', this.currentMonth);
-      setTimeout(()=>{//zeby po zrenderowaniu kolejnego miesiaca w kalendarzu sie dane zaladowaly
+      setTimeout(()=>{//zeby po zrenderowaniu kolejnego miesiaca w kalendarzu sie dane zaladowaly - najpierw render kalendarza potem ładować dane
         this.changeMonthEvent.emit(this.currentMonth)
       })
     }
@@ -47,17 +47,12 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
   }
 
   isSelected = (event: any) => {
-    const date =
-      event.getFullYear() +
-      '-' +
-      ('00' + (event.getMonth() + 1)).slice(-2) +
-      '-' +
-      ('00' + event.getDate()).slice(-2);
+    const date = this.dateToString(event)
     let cssClass: string = '';
 
-    if (this.daysSessioned.find((x) => x.date == date)) {
+/*     if (this.daysSessioned.find((x) => x.date == date)) {
       cssClass = 'sessioned';
-    }
+    } */
     if (this.daysSelected.find((x) => x.date == date)) {
       cssClass = 'selected';
       console.log('moze tu wchodze?')
@@ -67,31 +62,28 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
 
   select(event: any, calendar: any) {
     console.log('EDYCJA Z KLIKA W DZIEŃ: '+this.edit)
-    const date =
-      event.getFullYear() +
-      '-' +
-      ('00' + (event.getMonth() + 1)).slice(-2) +
-      '-' +
-      ('00' + event.getDate()).slice(-2);
+    const date = this.dateToString(event)
 
     const dateObj = { date: date, title: 'selected' };
 
     if(this.edit){
-      const index = this.daysSelected.findIndex((x) => x.date == date);
-      if (index < 0) this.daysSelected.push(dateObj);
-      else this.daysSelected.splice(index, 1);
+      if(this.daysSessioned.find(ds => ds.date == date)) {
+        const index = this.daysSelected.findIndex((x) => x.date == date);
+        if (index < 0) this.daysSelected.push(dateObj);
+        else this.daysSelected.splice(index, 1);
 
-      calendar.updateTodaysDate();
-      setTimeout(() => {
-        //debugger
-        this.displayMonth();
-      });
+        calendar.updateTodaysDate();
+        setTimeout(() => {
+          //debugger
+          this.displayMonth();
+        });
+      }
     }else{
       const session:TrainingSession | undefined = this.daysSessioned.find((x) => x.date == date)
       if(session){
-        console.log('znalazłem sesje: '+ session.id, session.title)
+        console.log('znalazłem sesje: '+ session.id, session.title)//eventemitter i dialog
       }else{
-        console.log('DODAJE NOWY')
+        console.log('DODAJE NOWY')//router navi
       }
     }
   }
@@ -101,18 +93,18 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
     console.dir(this.daysSelected)
     let x = document.querySelectorAll('.mat-calendar-body-cell');
     x.forEach((y) => {
-      let dateSearch = this.dateToString(
-        new Date(y.getAttribute('aria-label')!)
-      );
+      let dateFrmAria = new Date(y.getAttribute('aria-label')!)
+      let day = dateFrmAria.getDate()
+      let dateSearch = this.dateToString(dateFrmAria);
       let data = this.daysSessioned.find((f) => f.date == dateSearch);
       if (data) {
         //y.setAttribute("data-text", data.text);
-        y.innerHTML = '<div>' + y.innerHTML + '<br/><br/><br/>' + data.title + '</div>';
+        y.children[0].innerHTML = day + '<br/>' + data.title;
         y.classList.add('sessioned')
       }
 
       let dataSel = this.daysSelected.find((f) => f.date == dateSearch);
-      console.log(dataSel)
+      //console.log(dataSel)
       if (dataSel) {
         y.classList.remove('sessioned')
         y.classList.add('selected')

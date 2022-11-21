@@ -33,6 +33,20 @@ export class MyTrainingComponent implements OnInit {
     this.monthSelectedSub$.next(month)
   }  
 
+  addMonths(numOfMonths:number, date = new Date()) {
+    date.setMonth(date.getMonth() + numOfMonths);
+    return this.dateToString(date);
+  }
+  dateToString(date: Date) {
+    return (
+      date.getFullYear() +
+      '-' +
+      ('00' + (date.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('00' + date.getDate()).slice(-2)
+    );
+  }
+
   ngOnInit(): void {
 /*     this.training$ = this.activatedRoute.params.pipe(
       map((param) => param?.['id']),
@@ -46,14 +60,14 @@ export class MyTrainingComponent implements OnInit {
     .pipe(
       //map(([id,month])=>({this.srvc.myTraining(id)})),
       switchMap(([id,month]) => {
-        let datex = '2022-11-05'
+/*         let datex = '2022-11-05'
         if (month>0){
           datex = '2022-12-05'
         }
         if (month < 0){
           datex = '2022-10-05'
-        }
-        return this.srvc.myTraining(id,datex)
+        } */
+        return this.srvc.myTraining(id,this.addMonths(month))
       })
     )
 
