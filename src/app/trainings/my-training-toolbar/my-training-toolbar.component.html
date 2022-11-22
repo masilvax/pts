@@ -1,33 +1,63 @@
-<mat-toolbar *ngIf="!edit" class="toolbar" [ngClass]="(isHandset$ | async) ? 'bottom-toolbar' : 'top-toolbar'"
-  color="primary">
+<mat-toolbar class="toolbar" [ngClass]="(isHandset$ | async) ? 'bottom-toolbar' : 'top-toolbar'" color="primary">
 
-  <button (click)="addNewTrainingEvent.emit()" mat-icon-button aria-label="add new training">
-    <mat-icon>add</mat-icon>
-  </button>
+  <div *ngIf="!edit">
 
-  <button mat-icon-button aria-label="edit" (click)="toggleEdit()">
-    <mat-icon>edit</mat-icon>
-  </button>
+    <button mat-button aria-label="add new training">
+      <mat-icon>arrow_back</mat-icon> back
+    </button>
 
-  <button mat-icon-button aria-label="add new training">
-    <mat-icon>delete</mat-icon>
-  </button>
+    <button mat-button aria-label="edit" (click)="toggleEdit()">
+      <mat-icon>edit</mat-icon> edit
+    </button>
 
-</mat-toolbar>
+  </div>
 
-<mat-toolbar *ngIf="edit" class="toolbar" [ngClass]="(isHandset$ | async) ? 'bottom-toolbar' : 'top-toolbar'"
-  color="primary">
+  <div *ngIf="edit && !(isWebLandscape$ | async)">
 
-  <button (click)="addNewTrainingEvent.emit()" mat-icon-button aria-label="add new training">
-    <mat-icon>add</mat-icon>
-  </button>
+    <button mat-icon-button aria-label="move for previous day" (click)="actionEvent.emit('prevDay')">
+      <mat-icon>skip_previous</mat-icon>
+    </button>
 
-  <button mat-icon-button aria-label="edit" (click)="toggleEdit()">
-    <mat-icon>cancel</mat-icon>
-  </button>
+    <button mat-icon-button aria-label="move for next day" (click)="actionEvent.emit('nextDay')">
+      <mat-icon>skip_next</mat-icon>
+    </button>
 
-  <button mat-icon-button aria-label="add new training">
-    <mat-icon>face</mat-icon>
-  </button>
+    <button mat-icon-button aria-label="copy for next week" (click)="actionEvent.emit('nextWeek')">
+      <mat-icon>dynamic_feed</mat-icon>
+    </button>
+
+    <button mat-icon-button aria-label="delete" (click)="actionEvent.emit('delete')">
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <button mat-icon-button aria-label="edit" (click)="toggleEdit()">
+      <mat-icon>cancel</mat-icon>
+    </button>
+
+  </div>
+
+  <div *ngIf="edit && (isWebLandscape$ | async)">
+
+    <button mat-button aria-label="move for previous day" (click)="actionEvent.emit('prevDay')">
+      <mat-icon>skip_previous</mat-icon> move for next day
+    </button>
+
+    <button mat-button aria-label="move for next day" (click)="actionEvent.emit('nextDay')">
+      <mat-icon>skip_next</mat-icon> move for previous day
+    </button>
+
+    <button mat-button aria-label="copy for next week" (click)="actionEvent.emit('nextWeek')">
+      <mat-icon>dynamic_feed</mat-icon> copy for next week
+    </button>
+
+    <button mat-button aria-label="delete" (click)="actionEvent.emit('delete')">
+      <mat-icon>delete</mat-icon> delete
+    </button>
+
+    <button mat-button aria-label="edit" (click)="toggleEdit()">
+      <mat-icon>cancel</mat-icon> cancel edit
+    </button>
+
+  </div>
 
 </mat-toolbar>

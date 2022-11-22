@@ -15,14 +15,13 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
 
   exampleHeader = ExampleHeaderComponent;
   currentMonth: number = 0;
-  daysSelected: any[] = [{ date: '2022-11-25', title: 'terefere' }];//to ma byc outputowane przy edycji
+  daysSelected: any[] = [];//to ma byc outputowane przy edycji
 
   @Input() edit: boolean = false;
-  //event: any;
+  @Input() daysSessioned!: TrainingSession[]// = [{id:3, date: '2022-11-20', title: 'tęż tąrąfąrą' }];
 
   @Output() changeMonthEvent:EventEmitter<number> = new EventEmitter<number>()
-
-  @Input() daysSessioned!: TrainingSession[]// = [{id:3, date: '2022-11-20', title: 'tęż tąrąfąrą' }];
+  @Output() daysSelectedEvent:EventEmitter<any[]> = new EventEmitter<any[]>()
 
   constructor() {}
 
@@ -64,10 +63,12 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
     console.log('EDYCJA Z KLIKA W DZIEŃ: '+this.edit)
     const date = this.dateToString(event)
 
-    const dateObj = { date: date, title: 'selected' };
+    
 
     if(this.edit){
-      if(this.daysSessioned.find(ds => ds.date == date)) {
+      let ds = this.daysSessioned.find(ds => ds.date == date)
+      if(ds) {
+        const dateObj = { date: date, id: ds.id };
         const index = this.daysSelected.findIndex((x) => x.date == date);
         if (index < 0) this.daysSelected.push(dateObj);
         else this.daysSelected.splice(index, 1);
@@ -77,6 +78,7 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
           //debugger
           this.displayMonth();
         });
+        this.daysSelectedEvent.emit(this.daysSelected)
       }
     }else{
       const session:TrainingSession | undefined = this.daysSessioned.find((x) => x.date == date)

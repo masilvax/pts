@@ -14,24 +14,34 @@ export class MyTrainingComponent implements OnInit {
 
   constructor(private activatedRoute:ActivatedRoute, private router:Router, private srvc:TrainingsService) { }
 
+  idichuj$!:Observable<number>
   training$!:Observable<Training>
   monthSelectedSub$:BehaviorSubject<number> = new BehaviorSubject<number>(0)
-  monthSelected:number = 0
+  monthSelected:number = 0 // tylko do przekazania miesiaca do subjecta po akcji z toolbara w celu odswiezenia danych
+  edit:boolean = false
+  daysSelected:any[] = []
   //monthSelected$!:Observable<number>
-  idichuj$!:Observable<number>
+  
 
-  edit:boolean = false;
+  actionFromChild(action: string): void {
+    console.log(action,this.daysSelected)
+    this.monthSelectedSub$.next(this.monthSelected)
+  }
+  
   editFromChild(edit:boolean) {
     this.edit = edit
     console.log('EDYCJAAA: '+this.edit)
   }
 
-  addNew(trainingName: string): void {}
-
   changeMonthFromChild(month:number) {
     console.log('miesiac: '+month)
+    this.monthSelected = month
     this.monthSelectedSub$.next(month)
-  }  
+  }
+
+  daysSelectedFromChild(days: any[]) {
+    this.daysSelected = days
+  }
 
   addMonths(numOfMonths:number, date = new Date()) {
     date.setMonth(date.getMonth() + numOfMonths);

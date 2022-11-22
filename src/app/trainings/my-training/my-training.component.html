@@ -1,4 +1,4 @@
-<app-my-training-toolbar (addNewTrainingEvent)="addNew($event)" (editEvent)="editFromChild($event)"></app-my-training-toolbar>
+<app-my-training-toolbar (actionEvent)="actionFromChild($event)" (editEvent)="editFromChild($event)"></app-my-training-toolbar>
 <main>
     <div *ngIf="training$ | async as t" class="main-list">
 
@@ -11,7 +11,12 @@
     <button (click)="changeMonth('next')">next</button>
     <button (click)="changeMonth('prev')">prev</button> -->
         <mat-card>
-            <app-training-calendar [daysSessioned]="t.sesje!" (changeMonthEvent)="changeMonthFromChild($event)" [edit]="edit">
+            <app-training-calendar
+             [edit]="edit"
+             [daysSessioned]="t.sesje!" 
+             (changeMonthEvent)="changeMonthFromChild($event)"
+             (daysSelectedEvent)="daysSelectedFromChild($event)"
+             >
             </app-training-calendar>
         </mat-card>
 

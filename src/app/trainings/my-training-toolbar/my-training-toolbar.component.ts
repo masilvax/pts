@@ -7,7 +7,7 @@ import { map, Observable, shareReplay } from 'rxjs';
   templateUrl: './my-training-toolbar.component.html',
   styleUrls: ['./my-training-toolbar.component.scss']
 })
-export class MyTrainingToolbarComponent implements OnInit {
+export class MyTrainingToolbarComponent {
 
   constructor(private breakpointObserver:BreakpointObserver) { }
 
@@ -17,7 +17,13 @@ export class MyTrainingToolbarComponent implements OnInit {
     shareReplay()
   );
 
-  @Output() addNewTrainingEvent: EventEmitter<string> = new EventEmitter<string>()
+  isWebLandscape$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.WebLandscape)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  @Output() actionEvent: EventEmitter<string> = new EventEmitter<string>()
 
   @Output() editEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
   edit:boolean = false
@@ -25,9 +31,6 @@ export class MyTrainingToolbarComponent implements OnInit {
   toggleEdit(){
     this.edit = !this.edit
     this.editEvent.emit(this.edit)
-  }
-
-  ngOnInit(): void {
   }
 
 }
