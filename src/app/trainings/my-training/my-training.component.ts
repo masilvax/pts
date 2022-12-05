@@ -20,12 +20,22 @@ export class MyTrainingComponent implements OnInit {
   monthSelected:number = 0 // tylko do przekazania miesiaca do subjecta po akcji z toolbara w celu odswiezenia danych
   edit:boolean = false
   daysSelected:any[] = []
-  //monthSelected$!:Observable<number>
   
 
   actionFromChild(action: string): void {
     console.log(action,this.daysSelected)
-    this.monthSelectedSub$.next(this.monthSelected)
+    this.srvc.trainingSessionsAction(this.daysSelected, action).subscribe({
+      next: () => {
+        this.daysSelected.splice(0,this.daysSelected.length)
+        setTimeout(()=>{
+          this.monthSelectedSub$.next(this.monthSelected)
+        })
+      },
+      error: (err) => {
+        this.monthSelectedSub$.next(this.monthSelected)
+        console.error(err)
+      }
+    })
   }
   
   editFromChild(edit:boolean) {
@@ -70,13 +80,6 @@ export class MyTrainingComponent implements OnInit {
     .pipe(
       //map(([id,month])=>({this.srvc.myTraining(id)})),
       switchMap(([id,month]) => {
-/*         let datex = '2022-11-05'
-        if (month>0){
-          datex = '2022-12-05'
-        }
-        if (month < 0){
-          datex = '2022-10-05'
-        } */
         return this.srvc.myTraining(id,this.addMonths(month))
       })
     )

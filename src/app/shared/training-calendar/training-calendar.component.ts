@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, Output, ViewEncapsulation } from '@angular/core';
 import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,14 +11,29 @@ import { TrainingSession } from 'src/app/core/models/training-session';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
+export class TrainingCalendarComponent implements OnChanges {
 
   exampleHeader = ExampleHeaderComponent;
   currentMonth: number = 0;
-  daysSelected: any[] = [];//to ma byc outputowane przy edycji
+  @Input() daysSelected: any[] = [];//to ma byc outputowane przy edycji
 
   @Input() edit: boolean = false;
-  @Input() daysSessioned!: TrainingSession[]// = [{id:3, date: '2022-11-20', title: 'tęż tąrąfąrą' }];
+  @Input() daysSessioned!: TrainingSession[]//after action (move, copy, delete) cleared in parent
+
+/*   private _removeSelection: boolean = true;
+
+  //remove selection after action (move, delete, copy)
+  @Input() get removeSelection() {
+    console.log('wszłemmmmmm')
+    this.daysSelected.splice(0,this.daysSelected.length);//czyszczenie selected
+    setTimeout(() => {
+      this.displayMonth();
+    });
+    return this._removeSelection
+  }
+  set removeSelection(val:boolean){
+    this._removeSelection = val
+  } */
 
   @Output() changeMonthEvent:EventEmitter<number> = new EventEmitter<number>()
   @Output() daysSelectedEvent:EventEmitter<any[]> = new EventEmitter<any[]>()
@@ -30,15 +45,15 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
     if (trg.dataset.month === 'nextMonth') {
       this.currentMonth++;
       this.daysSelected.splice(0,this.daysSelected.length);
-      console.log('NEXT: ', this.currentMonth);
-      setTimeout(()=>{//zeby po zrenderowaniu kolejnego miesiaca w kalendarzu sie dane zaladowaly - najpierw render kalendarza potem ładować dane
+      
+      setTimeout(()=>{//zeby po zrenderowaniu kolejnego miesiaca w kalendarzu sie dane zaladowaly - najpierw render kalendarza potem ładować dane z parenta
         this.changeMonthEvent.emit(this.currentMonth)
       })
     }
     if (trg.dataset.month === 'prevMonth') {
       this.currentMonth--;
       this.daysSelected.splice(0,this.daysSelected.length);
-      console.log('PREV: ', this.currentMonth);
+      
       setTimeout(()=>{
         this.changeMonthEvent.emit(this.currentMonth)
       })
@@ -49,21 +64,15 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
     const date = this.dateToString(event)
     let cssClass: string = '';
 
-/*     if (this.daysSessioned.find((x) => x.date == date)) {
-      cssClass = 'sessioned';
-    } */
     if (this.daysSelected.find((x) => x.date == date)) {
       cssClass = 'selected';
-      console.log('moze tu wchodze?')
     }
     return cssClass;
   };
 
   select(event: any, calendar: any) {
-    console.log('EDYCJA Z KLIKA W DZIEŃ: '+this.edit)
-    const date = this.dateToString(event)
-
-    
+    //console.log('EDYCJA Z KLIKA W DZIEŃ: '+this.edit)
+    const date = this.dateToString(event)    
 
     if(this.edit){
       let ds = this.daysSessioned.find(ds => ds.date == date)
@@ -75,7 +84,6 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
 
         calendar.updateTodaysDate();
         setTimeout(() => {
-          //debugger
           this.displayMonth();
         });
         this.daysSelectedEvent.emit(this.daysSelected)
@@ -83,26 +91,29 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
     }else{
       const session:TrainingSession | undefined = this.daysSessioned.find((x) => x.date == date)
       if(session){
-        console.log('znalazłem sesje: '+ session.id, session.title)//eventemitter i dialog
+        console.log('znalazłem sesje: '+ session.id, session.title)//router navi
       }else{
-        console.log('DODAJE NOWY')//router navi
+        console.log('DODAJE NOWY')//eventemitter, zeby dialog z parenta odpalic
       }
     }
   }
 
   displayMonth() {
-    console.log('displejam mant')
-    console.dir(this.daysSelected)
+    //console.log('displejam mant')
+    //console.dir(this.daysSelected)
     let x = document.querySelectorAll('.mat-calendar-body-cell');
     x.forEach((y) => {
       let dateFrmAria = new Date(y.getAttribute('aria-label')!)
       let day = dateFrmAria.getDate()
       let dateSearch = this.dateToString(dateFrmAria);
-      let data = this.daysSessioned.find((f) => f.date == dateSearch);
-      if (data) {
+      let trainSess = this.daysSessioned.find((f) => f.date == dateSearch);
+      if (trainSess) {
         //y.setAttribute("data-text", data.text);
-        y.children[0].innerHTML = day + '<br/>' + data.title;
+        y.children[0].innerHTML = '<span>'+day + '</span><span class="session-title"><br>' + trainSess.title+'</span>';
         y.classList.add('sessioned')
+      }else{
+        y.children[0].innerHTML = '<span>'+day+'</span>';
+        y.classList.remove('sessioned')
       }
 
       let dataSel = this.daysSelected.find((f) => f.date == dateSearch);
@@ -126,21 +137,13 @@ export class TrainingCalendarComponent implements OnChanges, AfterViewInit {
   }
 
   ngOnChanges(): void {
-    if(!this.edit){
-      this.daysSelected.splice(0,this.daysSelected.length);
-      console.log('czyszcze selected')
+    if(!this.edit){//edit jest z inputa
+      this.daysSelected.splice(0,this.daysSelected.length);//czyszczenie selected
     }
     setTimeout(() => {
-      //debugger
       this.displayMonth();
     });
-    console.log('Z AKLENDARZAAA: '+this.edit)
   }
-
-  ngAfterViewInit(): void {
-    this.displayMonth()
-  }
-
 }
 
 

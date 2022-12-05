@@ -1,5 +1,5 @@
 <div *ngIf="(loggedUser$ | async) as lu" >
-    <button id="user-tray-btn" mat-fab [matMenuTriggerFor]="menu">
+    <button id="user-tray-btn" mat-fab [matMenuTriggerFor]="menu" color="primary">
         <mat-icon class="material-symbols-outlined" aria-label="Side nav toggle icon">skull</mat-icon>
     </button>
     <!-- <button id="nav-tgl-btn" type="button" aria-label="Toggle sidenav" mat-fab color="accent">

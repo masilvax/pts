@@ -1,11 +1,15 @@
 .mat-calendar-body-cell.selected {
-    background-color: red !important;
-    border-radius: 2px;
+    background-color: #e040fb !important;
+    border-radius: 50%;
   }
   
   .mat-calendar-body-cell.sessioned {
-    background-color: blue !important;
-    border-radius: 2px;
+    background-color: #00bcd4 !important;
+    border-radius: 50%;
+  }
+  .mat-calendar-body-cell-content {
+   display: flex;
+   flex-direction: column;
   }
 
   .calendar-wrapper {
@@ -16,4 +20,13 @@
   .calendar-container {
     max-width: 85vh;
     width: 100%;
+  }
+  .session-title {
+    display: none;
+  }
+
+  @media screen and (min-width:900px) {
+    .session-title {
+      display: block;
+    }
   }

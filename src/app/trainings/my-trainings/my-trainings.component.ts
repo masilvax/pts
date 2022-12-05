@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, catchError, map, Observable, of, share, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, share, Subscription, switchMap, tap } from 'rxjs';
 import { Training } from 'src/app/core/models/training';
 import { ConfirmDialogService } from 'src/app/core/services/confirm-dialog.service';
 import { TrainingsService } from 'src/app/core/services/trainings.service';
@@ -23,7 +23,7 @@ export class MyTrainingsComponent implements OnInit {
   myTrainings$!: Observable<Training[]>;
   refreshTrainigs$ = new BehaviorSubject<boolean>(false);
   //loader: boolean = false;
-  
+  private subscriptions: Subscription[] = []
 
   addNew(trainingName: string): void {
 
@@ -40,16 +40,18 @@ export class MyTrainingsComponent implements OnInit {
           id:0,
           nazwa:result,
         }
-        this.srvc.addNewTraining(trainig).subscribe({
-          next: (res) => {
-            console.log(res)
-            this.refreshTrainigs$.next(true)
-          },
-          error: (err) => {
-            this.refreshTrainigs$.next(true)
-            console.error(err)
-          }
-        })
+        this.subscriptions.push(
+          this.srvc.addNewTraining(trainig).subscribe({
+            next: (res) => {
+              console.log(res)
+              this.refreshTrainigs$.next(true)
+            },
+            error: (err) => {
+              this.refreshTrainigs$.next(true)
+              console.error(err)
+            }
+          })
+        )
         
       }
     });
@@ -66,17 +68,18 @@ export class MyTrainingsComponent implements OnInit {
         //alert('number: '+id)
         //this.addNew('terefer-'+id)
 
-        this.srvc.deleteTraining(t.id).subscribe({
-          next: (res) => {
-            console.log(res)
-            this.refreshTrainigs$.next(true)
-          },
-          error: (err) => {
-            this.refreshTrainigs$.next(true)
-            console.error(err)
-          }
-        })
-
+        this.subscriptions.push(
+          this.srvc.deleteTraining(t.id).subscribe({
+            next: (res) => {
+              console.log(res)
+              this.refreshTrainigs$.next(true)
+            },
+            error: (err) => {
+              this.refreshTrainigs$.next(true)
+              console.error(err)
+            }
+          })
+        )
       }
     })
   }
@@ -94,5 +97,9 @@ export class MyTrainingsComponent implements OnInit {
       share()
     );
 
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 }

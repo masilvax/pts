@@ -42,4 +42,12 @@ export class TrainingsService {
     return this.http.get<Training>(this.ApiUrl + '/http_treningi.php?akcja=myTraining&id='+id+'&data='+data).pipe(share(),last())
   }
 
+  trainingSessionsAction(ids:{id:number,date:string}[],action:string):Observable<any>{
+    let idsStr = JSON.stringify(ids.sort((a,b) => this.komparujKurwa(a.date, b.date,false)).map(obj => obj.id))
+    return this.http.get<Training>(this.ApiUrl + '/http_treningi.php?akcja='+action+'&idki='+idsStr).pipe(share(),last())
+  }
+  private komparujKurwa(a:string,b:string, isAsc: boolean) {// it doesn't compare without this callback function
+    return (a < b ? -1 : 1)* (isAsc ? 1 : -1)
+  }
+
 }
