@@ -1,0 +1,6 @@
+<main class="main-list" *ngIf="session$ | async as ses">
+    {{ses.nazwa}}
+
+    <app-training-session-tile *ngFor="let s of ses.cwiczenia" [exercise]="s" (actionEmitter)="addExercise(s)"></app-training-session-tile>
+
+</main>

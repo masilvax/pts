@@ -22,10 +22,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CheckboxValueDirective } from './core/directives/checkbox-value.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    //CheckboxValueDirective
   ],
   imports: [
     BrowserModule,

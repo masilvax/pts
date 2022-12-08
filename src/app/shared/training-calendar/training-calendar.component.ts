@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, Output, ViewEncapsulation } from '@angular/core';
 import { DateAdapter, MatDateFormats, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatCalendar } from '@angular/material/datepicker';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { TrainingSession } from 'src/app/core/models/training-session';
 
@@ -38,7 +39,7 @@ export class TrainingCalendarComponent implements OnChanges {
   @Output() changeMonthEvent:EventEmitter<number> = new EventEmitter<number>()
   @Output() daysSelectedEvent:EventEmitter<any[]> = new EventEmitter<any[]>()
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   @HostListener('click', ['$event.target'])
   onClick(trg: { dataset: { month: string; }; }) {
@@ -75,7 +76,7 @@ export class TrainingCalendarComponent implements OnChanges {
     const date = this.dateToString(event)    
 
     if(this.edit){
-      let ds = this.daysSessioned.find(ds => ds.date == date)
+      let ds = this.daysSessioned.find(ds => ds.data == date)
       if(ds) {
         const dateObj = { date: date, id: ds.id };
         const index = this.daysSelected.findIndex((x) => x.date == date);
@@ -89,11 +90,12 @@ export class TrainingCalendarComponent implements OnChanges {
         this.daysSelectedEvent.emit(this.daysSelected)
       }
     }else{
-      const session:TrainingSession | undefined = this.daysSessioned.find((x) => x.date == date)
+      const session:TrainingSession | undefined = this.daysSessioned.find((x) => x.data == date)
       if(session){
-        console.log('znalazłem sesje: '+ session.id, session.title)//router navi
+        console.log('znalazłem sesje: '+ session.id, session.nazwa)//router navi
+        this.router.navigate(['trainings/session/',session.id])
       }else{
-        console.log('DODAJE NOWY')//eventemitter, zeby dialog z parenta odpalic
+        console.log('DODAJE NOWĄ sesję')//eventemitter, zeby dialog z parenta odpalic
       }
     }
   }
@@ -106,10 +108,10 @@ export class TrainingCalendarComponent implements OnChanges {
       let dateFrmAria = new Date(y.getAttribute('aria-label')!)
       let day = dateFrmAria.getDate()
       let dateSearch = this.dateToString(dateFrmAria);
-      let trainSess = this.daysSessioned.find((f) => f.date == dateSearch);
+      let trainSess = this.daysSessioned.find((f) => f.data == dateSearch);
       if (trainSess) {
         //y.setAttribute("data-text", data.text);
-        y.children[0].innerHTML = '<span>'+day + '</span><span class="session-title"><br>' + trainSess.title+'</span>';
+        y.children[0].innerHTML = '<span>'+day + '</span><span class="session-title"><br>' + trainSess.nazwa+'</span>';
         y.classList.add('sessioned')
       }else{
         y.children[0].innerHTML = '<span>'+day+'</span>';

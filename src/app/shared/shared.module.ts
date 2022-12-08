@@ -16,7 +16,10 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { TrainingCalendarComponent,ExampleHeaderComponent } from './training-calendar/training-calendar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { ExerciseTileComponent } from './exercise-tile/exercise-tile.component';
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import { FormsModule } from '@angular/forms';
+import { CheckboxValueDirective } from '../core/directives/checkbox-value.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     LoadingComponent,
     ConfirmDialogComponent,
     TrainingCalendarComponent,
-    ExampleHeaderComponent
+    ExampleHeaderComponent,
+    ExerciseTileComponent,
+    CheckboxValueDirective
   ],
   imports: [
     CommonModule,
@@ -39,7 +44,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatCardModule,
     MatProgressBarModule,
     MatDialogModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatCheckboxModule,
+    FormsModule
   ],
   exports: [
     NavigationComponent,
@@ -47,7 +54,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     TrainingTileComponent,
     LoadingComponent,
     ConfirmDialogComponent,
-    TrainingCalendarComponent
+    TrainingCalendarComponent,
+    ExerciseTileComponent
   ]
 })
 export class SharedModule { }

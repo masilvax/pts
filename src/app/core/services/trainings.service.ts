@@ -42,6 +42,7 @@ export class TrainingsService {
     return this.http.get<Training>(this.ApiUrl + '/http_treningi.php?akcja=myTraining&id='+id+'&data='+data).pipe(share(),last())
   }
 
+  //handles buttons from toolbar
   trainingSessionsAction(ids:{id:number,date:string}[],action:string):Observable<any>{
     let idsStr = JSON.stringify(ids.sort((a,b) => this.komparujKurwa(a.date, b.date,false)).map(obj => obj.id))
     return this.http.get<Training>(this.ApiUrl + '/http_treningi.php?akcja='+action+'&idki='+idsStr).pipe(share(),last())

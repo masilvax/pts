@@ -87,7 +87,7 @@ export class MyTrainingsComponent implements OnInit {
   ngOnInit(): void {
     //this.myTrainings$ = this.srvc.myTrainings()
 
-    //to nie działa, bo z resolvera ma na stałe dane, więc po update'cie nie ma bata, zeby mial tam swieze dane
+    //to nie zdaje egzaminu, bo z resolvera ma na stałe dane, więc po update'cie nie ma bata, zeby mial tam swieze dane
     /*this.myTrainings$ = this.activatedRoute.data.pipe(
       map((data) => data?.['trainings']),
       share()

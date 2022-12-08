@@ -1,5 +1,8 @@
+import { Exercise } from "./exercise";
+
 export interface TrainingSession {
     id: number;
-    title: string;
-    date:string;
+    nazwa: string;
+    data:string;
+    cwiczenia?:Exercise[]
 }

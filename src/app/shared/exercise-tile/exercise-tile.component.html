@@ -1,0 +1,55 @@
+<mat-card [class.mat-elevation-z0]="true" class="row">
+
+    <mat-card-header class="col align-center">
+            {{exercise.kolejnoscWysw}}{{exercise.litera}}
+    </mat-card-header>
+<mat-card-content>
+    <mat-card-title>{{exercise.nazwa_krotka}}</mat-card-title>
+    <div class="set-container">
+        <div *ngFor="let x of exercise.zrobione; index as i" class="set">
+            {{i}} {{x}} {{exercise.powt[i]}}x{{exercise.ciezar[i]}}
+
+<!--             <mat-checkbox #checkbox="matCheckbox" [checkboxValue]="checkbox" trueValue="1" falseValue="0" [(ngModel)]="exercise.zrobione[i]">
+
+              </mat-checkbox> 
+              <p>
+                zrobione: {{exercise.zrobione[i]}} - check.val: {{checkbox.value}}
+              </p> -->
+
+
+              <mat-checkbox appCheckboxValue trueValue="1" falseValue="0" [(ngModel)]="exercise.zrobione[i]">
+            </mat-checkbox> 
+            zrobione: {{exercise.zrobione[i]}}
+        </div>
+    </div>
+
+</mat-card-content>
+
+    <mat-card-actions [align]="'start'" class="col no-padding">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="actionEmitter.emit(exercise)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="actionEmitter.emit(exercise)">
+                <mat-icon>arrow_downward</mat-icon>
+                <span>Move down</span>
+            </button>
+            <button mat-menu-item (click)="actionEmitter.emit(exercise)">
+                <mat-icon>link</mat-icon>
+                <span>superset with below</span>
+            </button>
+            <button mat-menu-item (click)="actionEmitter.emit(exercise)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+            </button>
+        </mat-menu>
+        <button mat-icon-button aria-label="Example icon-button with a menu">
+            <mat-icon>info</mat-icon>
+        </button>
+    </mat-card-actions>
+
+</mat-card>

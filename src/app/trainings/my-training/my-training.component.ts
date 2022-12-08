@@ -14,9 +14,9 @@ export class MyTrainingComponent implements OnInit {
 
   constructor(private activatedRoute:ActivatedRoute, private router:Router, private srvc:TrainingsService) { }
 
-  idichuj$!:Observable<number>
+  idTraining$!:Observable<number>
   training$!:Observable<Training>
-  monthSelectedSub$:BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  monthSelectedSub$:BehaviorSubject<number> = new BehaviorSubject<number>(0)//do dswiezania tez sie przydaje
   monthSelected:number = 0 // tylko do przekazania miesiaca do subjecta po akcji z toolbara w celu odswiezenia danych
   edit:boolean = false
   daysSelected:any[] = []
@@ -73,10 +73,10 @@ export class MyTrainingComponent implements OnInit {
       switchMap(id => this.srvc.myTraining(id))
     ) */
 
-    this.idichuj$ = this.activatedRoute.params.pipe(map((param)=> param?.['id']))
+    this.idTraining$ = this.activatedRoute.params.pipe(map((param)=> param?.['id']))
     //this.monthSelected$ = this.monthSelectedSub$.asObservable()
 
-    this.training$ = combineLatest(this.idichuj$,this.monthSelectedSub$)//, (id,month) => {return this.srvc.myTraining(id)})
+    this.training$ = combineLatest([this.idTraining$,this.monthSelectedSub$])//, (id,month) => {return this.srvc.myTraining(id)})
     .pipe(
       //map(([id,month])=>({this.srvc.myTraining(id)})),
       switchMap(([id,month]) => {
