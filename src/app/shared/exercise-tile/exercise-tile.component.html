@@ -1,29 +1,48 @@
 <mat-card [class.mat-elevation-z0]="true" class="row">
 
     <mat-card-header class="col align-center">
-            {{exercise.kolejnoscWysw}}{{exercise.litera}}
+        {{exercise.kolejnoscWysw}}{{exercise.litera}}
     </mat-card-header>
-<mat-card-content>
-    <mat-card-title>{{exercise.nazwa_krotka}}</mat-card-title>
-    <div class="set-container">
-        <div *ngFor="let x of exercise.zrobione; index as i" class="set">
-            {{i}} {{x}} {{exercise.powt[i]}}x{{exercise.ciezar[i]}}
+    <mat-card-content>
+        <mat-card-title>{{exercise.nazwa_krotka}}</mat-card-title>
+        <mat-card-subtitle>{{exercise.nazwa_krotka}}</mat-card-subtitle>
+        <mat-card-subtitle>SETS DONE:</mat-card-subtitle>
 
-<!--             <mat-checkbox #checkbox="matCheckbox" [checkboxValue]="checkbox" trueValue="1" falseValue="0" [(ngModel)]="exercise.zrobione[i]">
+        <div class="set-container">
+            <div *ngFor="let x of exercise.zrobione; index as i" class="set">
 
-              </mat-checkbox> 
-              <p>
-                zrobione: {{exercise.zrobione[i]}} - check.val: {{checkbox.value}}
-              </p> -->
+                <button mat-raised-button color="primary" [class.mat-elevation-z0]="true" *ngIf="x===0" (click)="doneEventEmit(exercise.id,i,1)">
 
+                    <mat-icon>check_box_outline_blank</mat-icon>
+                    <br>
+                    <span *ngIf="exercise.jedn_intens!=='BW'">
+                        {{exercise.powt[i]}}x{{exercise.ciezar[i]}}{{exercise.jedn_intens}}
+                    </span>
+                    <span *ngIf="exercise.jedn_intens==='BW'">
+                        {{exercise.powt[i]}}x{{exercise.jedn_intens}}
+                    </span>
 
-              <mat-checkbox appCheckboxValue trueValue="1" falseValue="0" [(ngModel)]="exercise.zrobione[i]">
-            </mat-checkbox> 
-            zrobione: {{exercise.zrobione[i]}}
+                </button>
+
+                <button mat-stroked-button *ngIf="x===1" (click)="doneEventEmit(exercise.id,i,0)">
+
+                    <mat-icon>check_box</mat-icon>
+                    <br>
+                    <span *ngIf="exercise.jedn_intens!=='BW'">
+                        {{exercise.powt[i]}}x{{exercise.ciezar[i]}}{{exercise.jedn_intens}}
+                    </span>
+                    <span *ngIf="exercise.jedn_intens==='BW'">
+                        {{exercise.powt[i]}}x{{exercise.jedn_intens}}
+                    </span>
+
+                </button>
+            </div>
         </div>
-    </div>
 
-</mat-card-content>
+        <!--     <mat-checkbox appCheckboxValue trueValue="1" falseValue="0" [(ngModel)]="exercise.superset">
+        superset: {{exercise.superset}} check_box_outline_blank
+    </mat-checkbox>  -->
+    </mat-card-content>
 
     <mat-card-actions [align]="'start'" class="col no-padding">
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -38,9 +57,13 @@
                 <mat-icon>arrow_downward</mat-icon>
                 <span>Move down</span>
             </button>
-            <button mat-menu-item (click)="actionEmitter.emit(exercise)">
+            <button *ngIf="exercise.superset===0" mat-menu-item (click)="actionEmitter.emit(exercise)">
                 <mat-icon>link</mat-icon>
                 <span>superset with below</span>
+            </button>
+            <button *ngIf="exercise.superset===1" mat-menu-item (click)="actionEmitter.emit(exercise)">
+                <mat-icon>link_off</mat-icon>
+                <span>un-superset with below</span>
             </button>
             <button mat-menu-item (click)="actionEmitter.emit(exercise)">
                 <mat-icon>delete</mat-icon>

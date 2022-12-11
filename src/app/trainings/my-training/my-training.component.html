@@ -1,8 +1,11 @@
 <app-my-training-toolbar (actionEvent)="actionFromChild($event)" (editEvent)="editFromChild($event)"></app-my-training-toolbar>
+
+<mat-toolbar class="component-toolbar">My Training</mat-toolbar>
+
 <main>
     <div *ngIf="training$ | async as t" class="main-list">
 
-        <mat-card>
+        <mat-card [class.mat-elevation-z0]="true">
             <div>{{t.nazwa}}</div>
         </mat-card>
         <!--     <div>{{t.nazwa}} {{t | json}}</div>
@@ -10,7 +13,7 @@
 
     <button (click)="changeMonth('next')">next</button>
     <button (click)="changeMonth('prev')">prev</button> -->
-        <mat-card>
+        <mat-card [class.mat-elevation-z0]="true">
             <app-training-calendar
              [edit]="edit"
              [daysSessioned]="t.sesje!" 

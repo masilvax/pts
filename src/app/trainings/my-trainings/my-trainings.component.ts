@@ -68,7 +68,7 @@ export class MyTrainingsComponent implements OnInit {
         //alert('number: '+id)
         //this.addNew('terefer-'+id)
 
-        this.subscriptions.push(
+        this.subscriptions.push(// not needed - http uncubscribes automatically. But that's one of a few ways to handle (un)subscriptions
           this.srvc.deleteTraining(t.id).subscribe({
             next: (res) => {
               console.log(res)

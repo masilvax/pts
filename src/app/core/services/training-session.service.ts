@@ -15,4 +15,15 @@ export class TrainingSessionService {
   myTrainingSession(id: number): Observable<TrainingSession> {
     return this.http.get<TrainingSession>(this.ApiUrl + '/http_sesja.php?akcja=myTrainingSession&id=' + id).pipe(share(), last());
   }
+
+  doneUndone(exerciseId:number,setsDone:'string'):Observable<any>{
+    const rampampam = {
+      akcja:'doneUndone',
+      id:exerciseId,
+      zrobione:setsDone
+    }
+    return this.http.post<any>(this.ApiUrl+'/http_sesja.php',rampampam).pipe(
+      share()
+    )
+  }
 }

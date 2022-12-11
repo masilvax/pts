@@ -6,5 +6,7 @@ export interface Exercise {
     litera:string,
     powt:number[],
     ciezar:number[],
-    zrobione:number[]
+    zrobione:number[],
+    superset: number,
+    jedn_intens:string
 }

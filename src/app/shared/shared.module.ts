@@ -55,7 +55,8 @@ import { CheckboxValueDirective } from '../core/directives/checkbox-value.direct
     LoadingComponent,
     ConfirmDialogComponent,
     TrainingCalendarComponent,
-    ExerciseTileComponent
+    ExerciseTileComponent,
+    CheckboxValueDirective
   ]
 })
 export class SharedModule { }

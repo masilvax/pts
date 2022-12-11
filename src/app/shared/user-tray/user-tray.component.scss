@@ -1,5 +1,5 @@
-p {
-    color:rebeccapurple
+.no-shadow {
+    box-shadow: none !important;
 }
 
 #user-tray-btn {
@@ -10,5 +10,9 @@ p {
     border-radius: initial;
     border-bottom-left-radius: 50%;
     box-shadow: none;
+    width: auto;
+    padding: 0;
+    aspect-ratio: 1;
+    justify-content: center;
     /* background-color: black; */
 }

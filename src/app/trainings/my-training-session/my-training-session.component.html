@@ -1,6 +1,12 @@
-<main class="main-list" *ngIf="session$ | async as ses">
-    {{ses.nazwa}}
+<!-- <main class="main-list" *ngIf="session$ | async as ses"> -->
 
-    <app-training-session-tile *ngFor="let s of ses.cwiczenia" [exercise]="s" (actionEmitter)="addExercise(s)"></app-training-session-tile>
+<mat-toolbar class="component-toolbar">My Training Session</mat-toolbar>
+
+<main class="main-list" *ngIf="session as ses">
+
+    {{ses.nazwa}}
+    {{ses.cwiczenia?.length}}
+
+    <app-exercise-tile *ngFor="let s of ses.cwiczenia" [exercise]="s" (actionEmitter)="addExercise(s)" (doneEvent)="doneUndone($event)"></app-exercise-tile>
 
 </main>
