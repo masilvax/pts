@@ -13,10 +13,15 @@ interface oneSet {
 })
 export class ExerciseTileComponent implements OnInit {
 
-
-
   @Input() exercise!: Exercise
-  @Output() actionEmitter: EventEmitter<Exercise> = new EventEmitter<Exercise>()
+  
+  @Output() editEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
+  @Output() supersetEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
+  @Output() unsupersetEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
+  @Output() moveUpEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
+  @Output() moveDownEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
+  @Output() deleteEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
+
   @Output() doneEvent: EventEmitter<oneSet> = new EventEmitter<oneSet>()
 
   constructor() {

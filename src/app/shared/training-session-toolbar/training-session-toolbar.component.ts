@@ -3,14 +3,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
 
 @Component({
-  selector: 'app-my-training-toolbar',
-  templateUrl: './my-training-toolbar.component.html',
-  styleUrls: ['./my-training-toolbar.component.scss']
+  selector: 'app-training-session-toolbar',
+  templateUrl: './training-session-toolbar.component.html',
+  styleUrls: ['./training-session-toolbar.component.scss']
 })
-export class MyTrainingToolbarComponent {
+export class TrainingSessionToolbarComponent implements OnInit {
 
-  constructor(private breakpointObserver:BreakpointObserver) { }
-
+  constructor(private breakpointObserver: BreakpointObserver) { }
+  
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
   .pipe(
     map(result => result.matches),
@@ -25,12 +25,7 @@ export class MyTrainingToolbarComponent {
 
   @Output() actionEvent: EventEmitter<string> = new EventEmitter<string>()
 
-  @Output() editEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
-  edit:boolean = false
-
-  toggleEdit(){
-    this.edit = !this.edit
-    this.editEvent.emit(this.edit)
+  ngOnInit(): void {
   }
 
 }

@@ -1,0 +1,15 @@
+.toolbar {
+    position: fixed;
+    width: auto;
+}
+
+.bottom-toolbar {
+    bottom: 0;
+    border-top-right-radius: 28px;
+    z-index: 55;
+}
+
+.top-toolbar {
+    top: 0;
+    border-bottom-right-radius: 32px;
+}

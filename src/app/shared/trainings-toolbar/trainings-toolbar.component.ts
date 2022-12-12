@@ -3,11 +3,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
 
 @Component({
-  selector: 'app-my-trainings-toolbar',
-  templateUrl: './my-trainings-toolbar.component.html',
-  styleUrls: ['./my-trainings-toolbar.component.scss']
+  selector: 'app-trainings-toolbar',
+  templateUrl: './trainings-toolbar.component.html',
+  styleUrls: ['./trainings-toolbar.component.scss']
 })
-export class MyTrainingsToolbarComponent implements OnInit {
+export class TrainingsToolbarComponent implements OnInit {
 
   constructor(private breakpointObserver:BreakpointObserver) { }
 

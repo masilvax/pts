@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Add new exercise</h1>
+<div mat-dialog-content>
+  <!-- <p>type training name</p> -->
+  <mat-form-field appearance="outline">
+    <mat-label>exercise name</mat-label>
+    <input matInput [(ngModel)]="data.nazwa_krotka" required="true">
+  </mat-form-field>
+</div>
+<div *ngFor="let set of data.ciezar; index as i">
+    {{set}}
+    <mat-form-field appearance="outline">
+        <mat-label>exercise name</mat-label>
+        <input matInput [(ngModel)]="data.ciezar[i]" required="true">
+      </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-button cdkFocusInitial (click)="onSave()" type="submit">Save</button>
+</div>

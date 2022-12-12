@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, map, Observable, switchMap, takeUntil } from 'rxjs';
 import { Destroyer } from 'src/app/core/destroyer.class';
 import { Exercise } from 'src/app/core/models/exercise';
 import { TrainingSession } from 'src/app/core/models/training-session';
 import { TrainingSessionService } from 'src/app/core/services/training-session.service';
+import { DialogAddExerciseComponent } from 'src/app/shared/dialog-add-exercise/dialog-add-exercise.component';
 
 @Component({
   selector: 'app-my-training-session',
@@ -13,20 +15,55 @@ import { TrainingSessionService } from 'src/app/core/services/training-session.s
 })
 export class MyTrainingSessionComponent extends Destroyer implements OnInit {
 
-  session$!: Observable<TrainingSession>
+  //session$!: Observable<TrainingSession>
   sessionId$!: Observable<number>
   refreshSession$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   session!: TrainingSession
-  sessionId!: number
+  //sessionId!: number
 
-  constructor(private activatedRoute: ActivatedRoute, private srvc:TrainingSessionService) {
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private srvc:TrainingSessionService,
+    private dialog: MatDialog) {
     super()
   }
 
   addExercise(exercise: Exercise){
     console.log(exercise)
     this.refreshSession$.next(true)
+
+    const dialogRef = this.dialog.open(DialogAddExerciseComponent,{
+      data: exercise
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+    })
+  }
+
+  editExersise(exercise: Exercise) {
+    console.log('edit: ', exercise)
+    this.refreshSession$.next(true)
+  }
+
+  actionFromToolbar(action: string) {
+    console.log(action)
+    
+    switch (action){
+      case 'add':
+        this.addExercise({
+          id:0,
+          id_sesji: this.session.id,
+          ciezar: [],
+          jedn_intens: 'kg',
+          nazwa_krotka: 'fertererter',
+          powt: [],
+          zrobione: [],
+          superset: 0
+        });
+        break;
+    }
   }
 
   doneUndone(set:any){

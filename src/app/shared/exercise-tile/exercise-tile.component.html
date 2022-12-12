@@ -49,23 +49,23 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="actionEmitter.emit(exercise)">
+            <button mat-menu-item (click)="editEvent.emit(exercise)">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
-            <button mat-menu-item (click)="actionEmitter.emit(exercise)">
+            <button mat-menu-item (click)="moveDownEvent.emit(exercise)">
                 <mat-icon>arrow_downward</mat-icon>
                 <span>Move down</span>
             </button>
-            <button *ngIf="exercise.superset===0" mat-menu-item (click)="actionEmitter.emit(exercise)">
+            <button *ngIf="exercise.superset===0" mat-menu-item (click)="supersetEvent.emit(exercise)">
                 <mat-icon>link</mat-icon>
                 <span>superset with below</span>
             </button>
-            <button *ngIf="exercise.superset===1" mat-menu-item (click)="actionEmitter.emit(exercise)">
+            <button *ngIf="exercise.superset===1" mat-menu-item (click)="unsupersetEvent.emit(exercise)">
                 <mat-icon>link_off</mat-icon>
                 <span>un-superset with below</span>
             </button>
-            <button mat-menu-item (click)="actionEmitter.emit(exercise)">
+            <button mat-menu-item (click)="deleteEvent.emit(exercise)">
                 <mat-icon>delete</mat-icon>
                 <span>Delete</span>
             </button>

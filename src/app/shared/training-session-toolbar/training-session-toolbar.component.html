@@ -1,0 +1,37 @@
+<mat-toolbar class="toolbar" [ngClass]="(isHandset$ | async) ? 'bottom-toolbar' : 'top-toolbar'" color="accent">
+
+
+    <div *ngIf="!(isWebLandscape$ | async)">
+  
+      <button mat-icon-button aria-label="move for previous day" >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+  
+      <button mat-icon-button aria-label="move for next day" >
+        <mat-icon>alarm_on</mat-icon>
+      </button>
+  
+      <button mat-icon-button aria-label="cadd new exercise" (click)="actionEvent.emit('add')">
+        <mat-icon>add</mat-icon>
+      </button>
+  
+  
+    </div>
+  
+    <div *ngIf="isWebLandscape$ | async">
+  
+      <button mat-button aria-label="move for previous day">
+        <mat-icon>arrow_back</mat-icon> back to calendar
+      </button>
+  
+      <button mat-button aria-label="move for next day">
+        <mat-icon>alarm_on</mat-icon> turn on counting and alarm
+      </button>
+  
+      <button mat-button aria-label="add new exercise" (click)="actionEvent.emit('add')">
+        <mat-icon>add</mat-icon> add new exercise
+      </button>
+  
+    </div>
+  
+  </mat-toolbar>

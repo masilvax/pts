@@ -20,6 +20,12 @@ import { ExerciseTileComponent } from './exercise-tile/exercise-tile.component';
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import { FormsModule } from '@angular/forms';
 import { CheckboxValueDirective } from '../core/directives/checkbox-value.directive';
+import { TrainingSessionToolbarComponent } from './training-session-toolbar/training-session-toolbar.component';
+import { TrainingToolbarComponent } from './training-toolbar/training-toolbar.component';
+import { TrainingsToolbarComponent } from './trainings-toolbar/trainings-toolbar.component';
+import { DialogAddExerciseComponent } from './dialog-add-exercise/dialog-add-exercise.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -31,7 +37,11 @@ import { CheckboxValueDirective } from '../core/directives/checkbox-value.direct
     TrainingCalendarComponent,
     ExampleHeaderComponent,
     ExerciseTileComponent,
-    CheckboxValueDirective
+    CheckboxValueDirective,
+    TrainingSessionToolbarComponent,
+    TrainingToolbarComponent,
+    TrainingsToolbarComponent,
+    DialogAddExerciseComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +56,9 @@ import { CheckboxValueDirective } from '../core/directives/checkbox-value.direct
     MatDialogModule,
     MatDatepickerModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     NavigationComponent,
@@ -56,7 +68,10 @@ import { CheckboxValueDirective } from '../core/directives/checkbox-value.direct
     ConfirmDialogComponent,
     TrainingCalendarComponent,
     ExerciseTileComponent,
-    CheckboxValueDirective
+    CheckboxValueDirective,
+    TrainingSessionToolbarComponent,
+    TrainingToolbarComponent,
+    TrainingsToolbarComponent
   ]
 })
 export class SharedModule { }
