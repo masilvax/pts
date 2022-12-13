@@ -1,0 +1,36 @@
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.set-container {
+    justify-content: center;
+    align-items: baseline;
+    gap:16px;
+}
+
+.set {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(128,128,128,.5);
+    border-radius: 5px;
+    padding: 8px 16px 0;
+}
+
+.width-100-pro {
+    width: 100%;
+}
+
+.width-150-px {
+    width: 150px;
+}
+.width-100-px {
+    width: 100px;
+}
+.width-50-px {
+    width: 50px;
+}
+
+.mat-form-field {
+    min-width: 50px;
+}

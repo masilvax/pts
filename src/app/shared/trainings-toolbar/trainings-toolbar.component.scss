@@ -1,12 +1,12 @@
 .toolbar {
     position: fixed;
     width: auto;
+    z-index: 55;
 }
 
 .bottom-toolbar {
     bottom: 0;
     border-top-right-radius: 28px;
-    z-index: 55;
 }
 
 .top-toolbar {

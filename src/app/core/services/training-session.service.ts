@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { last, Observable, share } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Exercise } from '../models/exercise';
 import { TrainingSession } from '../models/training-session';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class TrainingSessionService {
   constructor(private http: HttpClient) {}
 
   myTrainingSession(id: number): Observable<TrainingSession> {
-    return this.http.get<TrainingSession>(this.ApiUrl + '/http_sesja.php?akcja=myTrainingSession&id=' + id).pipe(share(), last());
+    return this.http.get<TrainingSession>(this.ApiUrl + '/http_sesja.php?akcja=myTrainingSession&id=' + id).pipe(share(), );
   }
 
   doneUndone(exerciseId:number,setsDone:'string'):Observable<any>{
@@ -25,5 +26,13 @@ export class TrainingSessionService {
     return this.http.post<any>(this.ApiUrl+'/http_sesja.php',rampampam).pipe(
       share()
     )
+  }
+
+  saveExercise(exercise: Exercise): Observable<any> {
+    const parapapampam = {
+      akcja: 'saveExercise',
+      ...exercise
+    }
+    return this.http.post<any>(this.ApiUrl+'/http_sesja.php',parapapampam)
   }
 }

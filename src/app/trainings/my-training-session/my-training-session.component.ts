@@ -29,9 +29,8 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
     super()
   }
 
-  addExercise(exercise: Exercise){
-    console.log(exercise)
-    this.refreshSession$.next(true)
+  editExersise(exercise: Exercise) {
+    console.log('edit: ', exercise)    
 
     const dialogRef = this.dialog.open(DialogAddExerciseComponent,{
       data: exercise
@@ -39,12 +38,10 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
+      if(result){
+        this.refreshSession$.next(true)
+      }
     })
-  }
-
-  editExersise(exercise: Exercise) {
-    console.log('edit: ', exercise)
-    this.refreshSession$.next(true)
   }
 
   actionFromToolbar(action: string) {
@@ -52,14 +49,16 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
     
     switch (action){
       case 'add':
-        this.addExercise({
+        this.editExersise({
           id:0,
           id_sesji: this.session.id,
-          ciezar: [],
+          ciezar: [1],
           jedn_intens: 'kg',
-          nazwa_krotka: 'fertererter',
-          powt: [],
-          zrobione: [],
+          nazwa_krotka: '',
+          nazwa: '',
+          serie: 1,
+          powt: [1],
+          zrobione: [0],
           superset: 0
         });
         break;

@@ -1,19 +1,89 @@
 <h1 mat-dialog-title>Add new exercise</h1>
-<div mat-dialog-content>
+<div mat-dialog-content class="content">
   <!-- <p>type training name</p> -->
   <mat-form-field appearance="outline">
     <mat-label>exercise name</mat-label>
     <input matInput [(ngModel)]="data.nazwa_krotka" required="true">
   </mat-form-field>
+
+  <mat-form-field appearance="outline" class="width-100-px">
+    <mat-label>unit</mat-label>
+    <mat-select [(ngModel)]="data.jedn_intens" name="jedn_intens">
+      <mat-option value="kg">kg</mat-option>
+      <mat-option value="lbs">lbs</mat-option>
+      <mat-option value="s">seconds</mat-option>
+      <mat-option value="BW">Bodyweight</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="width-100-pro">
+    <mat-label>description (optional)</mat-label>
+    <textarea matInput [(ngModel)]="data.nazwa"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="width-150-px">
+    <mat-label>pauses between sets</mat-label>
+    <input matInput [(ngModel)]="data.przerwy_serie">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="width-150-px">
+    <mat-label>pause after exercise</mat-label>
+    <input matInput [(ngModel)]="data.przerwa_po">
+  </mat-form-field>
+
 </div>
-<div *ngFor="let set of data.ciezar; index as i">
-    {{set}}
-    <mat-form-field appearance="outline">
-        <mat-label>exercise name</mat-label>
-        <input matInput [(ngModel)]="data.ciezar[i]" required="true">
+
+<div class="content set-container">
+  <button mat-icon-button (click)="addSet()">
+    <mat-icon>add</mat-icon>
+  </button>
+  
+  <mat-form-field appearance="outline" class="width-50-px">
+    <mat-label>sets</mat-label>
+    <input matInput [(ngModel)]="data.serie">
+  </mat-form-field>
+  
+  <button mat-icon-button (click)="removeSet()">
+    <mat-icon>remove</mat-icon>
+  </button>
+</div>
+
+<div class="content set-container">
+  <div *ngFor="let set of data.ciezar; index as i; trackBy:trackByFn" class="set">
+
+    <div>
+      <button mat-icon-button (click)="removeSet()">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <mat-form-field appearance="legacy" class="width-50-px">
+        <mat-label>reps</mat-label>
+        <input matInput [(ngModel)]="data.powt[i]">
       </mat-form-field>
+
+      <button mat-icon-button (click)="removeSet()">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+
+    <div *ngIf="data.jedn_intens!=='BW'">
+      <button mat-icon-button (click)="removeSet()">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <mat-form-field appearance="legacy" class="width-50-px">
+        <mat-label>{{data.jedn_intens}}</mat-label>
+        <input matInput [(ngModel)]="data.ciezar[i]">
+      </mat-form-field>
+
+      <button mat-icon-button (click)="removeSet()">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+
+  </div>
 </div>
 <div mat-dialog-actions>
   <button mat-button [mat-dialog-close]="false">Cancel</button>
-  <button mat-button cdkFocusInitial (click)="onSave()" type="submit">Save</button>
+  <button mat-button type="submit" (click)="onSave()">Save</button>
 </div>

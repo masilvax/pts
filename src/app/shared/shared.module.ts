@@ -26,6 +26,7 @@ import { TrainingsToolbarComponent } from './trainings-toolbar/trainings-toolbar
 import { DialogAddExerciseComponent } from './dialog-add-exercise/dialog-add-exercise.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { MatInputModule } from '@angular/material/input';
     MatCheckboxModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   exports: [
     NavigationComponent,
