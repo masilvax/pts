@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Exercise } from 'src/app/core/models/exercise';
 
-interface oneSet {
+interface OneSet {
   exerciseId:number,
   setsDone:string
 }
@@ -14,6 +14,9 @@ interface oneSet {
 export class ExerciseTileComponent implements OnInit {
 
   @Input() exercise!: Exercise
+  @Input() isTrainer!: boolean
+  @Input() isFirst!: boolean
+  @Input() isLast!: boolean
   
   @Output() editEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
   @Output() supersetEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
@@ -22,7 +25,7 @@ export class ExerciseTileComponent implements OnInit {
   @Output() moveDownEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
   @Output() deleteEvent: EventEmitter<Exercise> = new EventEmitter<Exercise>()
 
-  @Output() doneEvent: EventEmitter<oneSet> = new EventEmitter<oneSet>()
+  @Output() doneEvent: EventEmitter<OneSet> = new EventEmitter<OneSet>()
 
   constructor() {
     

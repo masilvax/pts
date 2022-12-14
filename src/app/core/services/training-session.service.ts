@@ -28,11 +28,27 @@ export class TrainingSessionService {
     )
   }
 
-  saveExercise(exercise: Exercise): Observable<any> {
+  saveExercise(exercise: Exercise, action: string): Observable<any> {
     const parapapampam = {
-      akcja: 'saveExercise',
+      akcja: action,
       ...exercise
     }
     return this.http.post<any>(this.ApiUrl+'/http_sesja.php',parapapampam)
   }
+
+/*   superset(exercise: Exercise): Observable<any> {
+    const parapapampam = {
+      akcja: 'superset',
+      ...exercise
+    }
+    return this.http.post<any>(this.ApiUrl+'/http_sesja.php',parapapampam)
+  }
+
+  unsuperset(exercise: Exercise): Observable<any> {
+    const parapapampam = {
+      akcja: 'unsuperset',
+      ...exercise
+    }
+    return this.http.post<any>(this.ApiUrl+'/http_sesja.php',parapapampam)
+  } */
 }

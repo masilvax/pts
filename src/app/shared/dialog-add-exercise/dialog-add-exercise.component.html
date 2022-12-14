@@ -1,14 +1,19 @@
-<h1 mat-dialog-title>Add new exercise</h1>
+<h1 mat-dialog-title class="title">Add new exercise
+  <mat-progress-bar mode="indeterminate" *ngIf="loader" color="accent"></mat-progress-bar>
+</h1>
+
+<form (ngSubmit)="onSave()" #addExerciseForm="ngForm">
+
 <div mat-dialog-content class="content">
   <!-- <p>type training name</p> -->
   <mat-form-field appearance="outline">
     <mat-label>exercise name</mat-label>
-    <input matInput [(ngModel)]="data.nazwa_krotka" required="true">
+    <input matInput [(ngModel)]="data.nazwa_krotka" required="true" name="nazwa_krotka">
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="width-100-px">
     <mat-label>unit</mat-label>
-    <mat-select [(ngModel)]="data.jedn_intens" name="jedn_intens">
+    <mat-select [(ngModel)]="data.jedn_intens" required="true" name="jedn_intens">
       <mat-option value="kg">kg</mat-option>
       <mat-option value="lbs">lbs</mat-option>
       <mat-option value="s">seconds</mat-option>
@@ -18,32 +23,32 @@
 
   <mat-form-field appearance="outline" class="width-100-pro">
     <mat-label>description (optional)</mat-label>
-    <textarea matInput [(ngModel)]="data.nazwa"></textarea>
+    <textarea matInput [(ngModel)]="data.nazwa" name="nazwa"></textarea>
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="width-150-px">
     <mat-label>pauses between sets</mat-label>
-    <input matInput [(ngModel)]="data.przerwy_serie">
+    <input matInput [(ngModel)]="data.przerwy_serie" type="number" min="0" required="true" name="przerwy_serie">
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="width-150-px">
     <mat-label>pause after exercise</mat-label>
-    <input matInput [(ngModel)]="data.przerwa_po">
+    <input matInput [(ngModel)]="data.przerwa_po" type="number" min="0" required="true" name="przerwa_po">
   </mat-form-field>
 
 </div>
 
 <div class="content set-container">
-  <button mat-icon-button (click)="addSet()">
+  <button type="button" mat-icon-button (click)="addSet()">
     <mat-icon>add</mat-icon>
   </button>
   
   <mat-form-field appearance="outline" class="width-50-px">
     <mat-label>sets</mat-label>
-    <input matInput [(ngModel)]="data.serie">
+    <input matInput [(ngModel)]="data.serie" type="number" readonly min="1" max="99" required="true" name="serie">
   </mat-form-field>
   
-  <button mat-icon-button (click)="removeSet()">
+  <button type="button" mat-icon-button (click)="removeSet()">
     <mat-icon>remove</mat-icon>
   </button>
 </div>
@@ -52,31 +57,31 @@
   <div *ngFor="let set of data.ciezar; index as i; trackBy:trackByFn" class="set">
 
     <div>
-      <button mat-icon-button (click)="removeSet()">
+      <button type="button" mat-icon-button (click)="repsUp(i)">
         <mat-icon>add</mat-icon>
       </button>
 
       <mat-form-field appearance="legacy" class="width-50-px">
         <mat-label>reps</mat-label>
-        <input matInput [(ngModel)]="data.powt[i]">
+        <input matInput [(ngModel)]="data.powt[i]" type="number" min="1" required="true" name="powt_{{i}}">
       </mat-form-field>
 
-      <button mat-icon-button (click)="removeSet()">
+      <button type="button" mat-icon-button (click)="repsDown(i)">
         <mat-icon>remove</mat-icon>
       </button>
     </div>
 
     <div *ngIf="data.jedn_intens!=='BW'">
-      <button mat-icon-button (click)="removeSet()">
+      <button type="button" mat-icon-button (click)="intensityUp(i)">
         <mat-icon>add</mat-icon>
       </button>
 
       <mat-form-field appearance="legacy" class="width-50-px">
         <mat-label>{{data.jedn_intens}}</mat-label>
-        <input matInput [(ngModel)]="data.ciezar[i]">
+        <input matInput [(ngModel)]="data.ciezar[i]" type="number" min="0" required="true" name="ciezar_{{i}}">
       </mat-form-field>
 
-      <button mat-icon-button (click)="removeSet()">
+      <button type="button" mat-icon-button (click)="intensityDown(i)">
         <mat-icon>remove</mat-icon>
       </button>
     </div>
@@ -84,6 +89,7 @@
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">Cancel</button>
-  <button mat-button type="submit" (click)="onSave()">Save</button>
+  <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+  <button [disabled]="!addExerciseForm.form.valid" mat-button type="submit">Save</button>
 </div>
+</form>

@@ -22,6 +22,8 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
   session!: TrainingSession
   //sessionId!: number
 
+  isTrainer: boolean = false // for child elmnt (exercise-tile)
+
   constructor(
     private activatedRoute: ActivatedRoute, 
     private srvc:TrainingSessionService,
@@ -33,7 +35,7 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
     console.log('edit: ', exercise)    
 
     const dialogRef = this.dialog.open(DialogAddExerciseComponent,{
-      data: exercise
+      data: JSON.parse(JSON.stringify(exercise))
     })
 
     dialogRef.afterClosed().subscribe(result => {
@@ -44,13 +46,43 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
     })
   }
 
+  actionFromTile(exercise: Exercise, action: string) {
+    console.log(exercise,action)
+
+    this.srvc.saveExercise(exercise,action).subscribe({
+      next: (res) => {
+        this.refreshSession$.next(true)
+      }
+    })
+    
+/*     switch (action){
+      case 'superset':
+        this.srvc.saveExercise(exercise).subscribe({
+          next: (res) => {
+            this.refreshSession$.next(true)
+          }
+        })
+        break
+
+      case 'unsuperset':
+        this.srvc.saveExercise(exercise).subscribe({
+          next: (res) => {
+            this.refreshSession$.next(true)
+          }
+        })
+        break
+  
+    } */
+
+  }
+
   actionFromToolbar(action: string) {
     console.log(action)
     
     switch (action){
       case 'add':
         this.editExersise({
-          id:0,
+          id:0,//zero will be added as new to DB
           id_sesji: this.session.id,
           ciezar: [1],
           jedn_intens: 'kg',
@@ -60,8 +92,9 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
           powt: [1],
           zrobione: [0],
           superset: 0
-        });
-        break;
+        })
+        break
+
     }
   }
 

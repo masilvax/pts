@@ -35,3 +35,11 @@
     flex-direction: column;
     align-items: center;
 }
+
+.superset-indicator {
+    position: absolute;
+    bottom: -23px;
+    rotate: 90deg;
+    z-index: 1;
+    left: 4px;
+}

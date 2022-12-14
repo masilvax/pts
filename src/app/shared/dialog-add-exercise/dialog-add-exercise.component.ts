@@ -21,7 +21,7 @@ export class DialogAddExerciseComponent implements OnInit {
   onSave() {
     this.loader = true
     console.log(this.data.ciezar)
-    this.srvc.saveExercise(this.data).subscribe({
+    this.srvc.saveExercise(this.data,'saveExercise').subscribe({
       next: (res) => {
         console.log(res)
         this.loader = false
@@ -52,12 +52,39 @@ export class DialogAddExerciseComponent implements OnInit {
   }
   removeSet() {
     if (this.data.serie > 1) {
-      this.data.ciezar = this.data.ciezar.slice(0, -1);
-      this.data.powt = this.data.powt.slice(0, -1);
-      this.data.zrobione = this.data.zrobione.slice(0, -1);
+      this.data.ciezar.pop();
+      this.data.powt.pop();
+      this.data.zrobione.pop();
       this.data.serie--;
     }
     console.log(this.data)
+  }
+
+  repsUp(i: number) {
+    if(this.data.powt[i] < 99)
+      this.data.powt[i]++
+  }
+  repsDown(i: number) {
+    if(this.data.powt[i] > 1)
+      this.data.powt[i]--
+  }
+  intensityUp(i: number) {
+
+    console.log(this.data.ciezar)
+    if(this.data.ciezar[i] === null || Number.isNaN(this.data.ciezar[i]) || this.data.ciezar[i].toString().length === 0){
+      this.data.ciezar[i] = 0.25
+      console.log(this.data.ciezar)
+    }
+
+    if(this.data.ciezar[i] < 1000)
+      this.data.ciezar[i] = this.data.ciezar[i] + 0.25
+  }
+  intensityDown(i: number) {
+    if(this.data.ciezar[i] === null || Number.isNaN(this.data.ciezar[i]) || this.data.ciezar[i].toString().length === 0)
+      this.data.ciezar[i] = 0.25
+
+    if(this.data.ciezar[i] > 0.25)
+      this.data.ciezar[i] = this.data.ciezar[i] - 0.25
   }
 
   ngOnInit(): void {

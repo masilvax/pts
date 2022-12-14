@@ -8,8 +8,17 @@
     {{ses.nazwa}}
     {{ses.cwiczenia?.length}}
 
-    <app-exercise-tile *ngFor="let s of ses.cwiczenia" [exercise]="s" 
+    <app-exercise-tile *ngFor="let s of ses.cwiczenia; first as frst; last as lst"
+    [exercise]="s"
+    [isTrainer]="isTrainer"
+    [isFirst]="frst"
+    [isLast]="lst"
     (editEvent)="editExersise($event)"
-    (doneEvent)="doneUndone($event)"></app-exercise-tile>
+    (doneEvent)="doneUndone($event)"
+    (supersetEvent)="actionFromTile($event,'superset')"
+    (unsupersetEvent)="actionFromTile($event,'unsuperset')"
+    (moveUpEvent)="actionFromTile($event,'moveUp')"
+    (moveDownEvent)="actionFromTile($event,'moveDown')"
+    (deleteEvent)="actionFromTile($event,'deleteExercise')"></app-exercise-tile>
 
 </main>

@@ -8,10 +8,13 @@
         <mat-card-subtitle>{{exercise.nazwa_krotka}}</mat-card-subtitle>
         <mat-card-subtitle>SETS DONE:</mat-card-subtitle>
 
-        <div class="set-container">
+        <div class="set-container" *ngIf="exercise.superset===0 || isLast">
             <div *ngFor="let x of exercise.zrobione; index as i" class="set">
 
-                <button mat-raised-button color="primary" [class.mat-elevation-z0]="true" *ngIf="x===0" (click)="doneEventEmit(exercise.id,i,1)">
+                <button mat-raised-button color="primary" [class.mat-elevation-z0]="true"
+                        *ngIf="x===0"
+                        (click)="doneEventEmit(exercise.id,i,1)"
+                        [disabled]="isTrainer">
 
                     <mat-icon>check_box_outline_blank</mat-icon>
                     <br>
@@ -24,9 +27,30 @@
 
                 </button>
 
-                <button mat-stroked-button *ngIf="x===1" (click)="doneEventEmit(exercise.id,i,0)">
+                <button mat-stroked-button
+                        *ngIf="x===1"
+                        (click)="doneEventEmit(exercise.id,i,0)"
+                        [disabled]="isTrainer">
 
                     <mat-icon>check_box</mat-icon>
+                    <br>
+                    <span *ngIf="exercise.jedn_intens!=='BW'">
+                        {{exercise.powt[i]}}x{{exercise.ciezar[i]}}{{exercise.jedn_intens}}
+                    </span>
+                    <span *ngIf="exercise.jedn_intens==='BW'">
+                        {{exercise.powt[i]}}x{{exercise.jedn_intens}}
+                    </span>
+
+                </button>
+            </div>
+        </div>
+
+        <div class="set-container" *ngIf="exercise.superset===1 && !isLast">
+            <div *ngFor="let x of exercise.zrobione; index as i" class="set">
+
+                <button mat-stroked-button disabled="true">
+
+                    <mat-icon>link</mat-icon>
                     <br>
                     <span *ngIf="exercise.jedn_intens!=='BW'">
                         {{exercise.powt[i]}}x{{exercise.ciezar[i]}}{{exercise.jedn_intens}}
@@ -53,11 +77,15 @@
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
-            <button mat-menu-item (click)="moveDownEvent.emit(exercise)">
+            <button mat-menu-item (click)="moveUpEvent.emit(exercise)" *ngIf="!isFirst">
+                <mat-icon>arrow_upward</mat-icon>
+                <span>Move up</span>
+            </button>
+            <button mat-menu-item (click)="moveDownEvent.emit(exercise)" *ngIf="!isLast">
                 <mat-icon>arrow_downward</mat-icon>
                 <span>Move down</span>
             </button>
-            <button *ngIf="exercise.superset===0" mat-menu-item (click)="supersetEvent.emit(exercise)">
+            <button *ngIf="exercise.superset===0 && !isLast" mat-menu-item (click)="supersetEvent.emit(exercise)">
                 <mat-icon>link</mat-icon>
                 <span>superset with below</span>
             </button>
@@ -70,9 +98,13 @@
                 <span>Delete</span>
             </button>
         </mat-menu>
-        <button mat-icon-button aria-label="Example icon-button with a menu">
+        <button mat-icon-button aria-label="description" *ngIf="exercise.nazwa!==''">
             <mat-icon>info</mat-icon>
         </button>
     </mat-card-actions>
+
+    <button class="superset-indicator" mat-icon-button *ngIf="exercise.superset===1 && !isLast">
+        <mat-icon>link</mat-icon>
+    </button>
 
 </mat-card>
