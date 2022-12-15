@@ -3,12 +3,24 @@
   </mat-toolbar>
   <mat-nav-list class="nav-list" [ngClass]="(isHandset$ | async) ? 'handset' : 'not-handset'">
 
-    <a [routerLink]="'login'" (click)="emitOutDrawerClose()">lodrz yn</a>
-    <a [routerLink]="''" (click)="emitOutDrawerClose()">hołm</a>
-    <a [routerLink]="''" (click)="emitOutDrawerClose()">Moje Konto</a>
-    <a [routerLink]="'trainings'" (click)="emitOutDrawerClose()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Moje Plany</a>
-    <a [routerLink]="''" (click)="emitOutDrawerClose()">Moi Trenerzy</a>
-    <a *ngIf="(loggedUser$ | async)?.trainer" mat-list-item class="dupa" [routerLink]="''" (click)="emitOutDrawerClose()">Moi Klienci</a>
+    <a [routerLink]="'login'" matRipple (click)="emitOutDrawerClose()">lodrz yn</a>
+    <a [routerLink]="''" matRipple (click)="emitOutDrawerClose()">hołm</a>
+    <a [routerLink]="''" matRipple (click)="emitOutDrawerClose()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+      <mat-icon>face</mat-icon>
+      <span class="nav-item-txt">My Account</span>
+    </a>
+    <a [routerLink]="'trainings'" matRipple (click)="emitOutDrawerClose()" routerLinkActive="active-link">
+      <mat-icon>fitness_center</mat-icon>
+      <span class="nav-item-txt">My Plans</span>
+    </a>
+    <a [routerLink]="''" matRipple (click)="emitOutDrawerClose()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+      <mat-icon>supervisor_account</mat-icon>
+      <span class="nav-item-txt">My Trainers</span>
+    </a>
+    <a *ngIf="(loggedUser$ | async)?.trainer" [routerLink]="''" matRipple (click)="emitOutDrawerClose()" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+      <mat-icon>groups</mat-icon>
+      <span class="nav-item-txt">My Clients</span>
+    </a>
 
   </mat-nav-list>
 </div>

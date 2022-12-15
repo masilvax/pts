@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginRegisterComponent } from './login-register/login-register.component';
 
 const routes: Routes = [
-  {path:'', component: LoginRegisterComponent}
+  {path:'', component: LoginRegisterComponent, data: {animation: 'fader'}}
 ];
 
 @NgModule({

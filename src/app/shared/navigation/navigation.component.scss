@@ -7,7 +7,7 @@
 .nav-list {
   display: flex;
   flex-direction: column;
-  
+  padding-top: 0;
 }
 .nav-list.handset {
   justify-content: end;
@@ -36,10 +36,22 @@
 }
 
 .nav-list > a {
-  justify-content: end;
+  display: flex;
+  height: 56px;
+  align-items: center;
+  padding: 16px;
 }
-
-.dupa span {
-  background-color: red;
-  height: 64px;
+.nav-list > a:hover, .active-link {
+  background-color: rgba(128,128,128,.1);
+}
+.nav-list.handset > a {
+  justify-content: end;
+  flex-direction: row-reverse;
+}
+.nav-list.not-handset > a {
+  justify-content: start;
+  flex-direction: row;
+}
+.nav-item-txt {
+  margin: 0 8px;
 }

@@ -27,6 +27,7 @@ import { DialogAddExerciseComponent } from './dialog-add-exercise/dialog-add-exe
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatRippleModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {MatSelectModule} from '@angular/material/select';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRippleModule
   ],
   exports: [
     NavigationComponent,

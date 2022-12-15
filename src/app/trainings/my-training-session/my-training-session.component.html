@@ -7,6 +7,7 @@
 
     {{ses.nazwa}}
     {{ses.cwiczenia?.length}}
+    {{ses.data | date}}
 
     <app-exercise-tile *ngFor="let s of ses.cwiczenia; first as frst; last as lst"
     [exercise]="s"

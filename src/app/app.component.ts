@@ -1,17 +1,19 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, DoCheck, HostBinding, /* HostBinding, */ Inject, OnChanges, OnInit, Renderer2 } from '@angular/core';
-import { ResolveEnd, ResolveStart, Router } from '@angular/router';
+import { ChildrenOutletContexts, ResolveEnd, ResolveStart, Router } from '@angular/router';
 import { delay, filter, map, merge, Observable, shareReplay, Subject } from 'rxjs';
 import { User } from './core/models/user';
 import { AuthService } from './core/services/auth.service';
 import { LoadingService } from './core/services/loading.service';
+import { fader } from './core/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations:[fader]
 })
 export class AppComponent implements OnInit/* , DoCheck */{
 
@@ -47,6 +49,7 @@ export class AppComponent implements OnInit/* , DoCheck */{
     private auth:AuthService,
     //private load:LoadingService,
     private breakpointObserver: BreakpointObserver,
+    private contexts: ChildrenOutletContexts
     //private router: Router
     ) {}
 //   ngDoCheck(): void {
@@ -78,6 +81,10 @@ export class AppComponent implements OnInit/* , DoCheck */{
     this.renderer.setAttribute(this.document.body, 'class', hostClass)
     //this.isDark = !this.isDark //@HostBinding z getem i metodą i returnem
     //this.klasaCss = this.isDark ? 'theme-dark' : 'theme-light' //@HostBinding bez geta
+  }
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
   }
 
 }

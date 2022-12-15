@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule/* , LOCALE_ID */ } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +22,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { MatNativeDateModule } from '@angular/material/core';
+
+/* import { registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
+
+registerLocaleData(localePl); */
 
 @NgModule({
   declarations: [
@@ -51,7 +56,8 @@ import { MatNativeDateModule } from '@angular/material/core';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    /* { provide: LOCALE_ID, useValue: 'pl' } */
   ],
   bootstrap: [AppComponent]
 })

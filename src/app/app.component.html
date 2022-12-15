@@ -12,10 +12,10 @@
 
     <app-navigation (out)="drawer.toggle()"></app-navigation>
 
-  </mat-sidenav>
-  <mat-sidenav-content [ngClass]="(isHandset$ | async) ? 'content-bottom-padding' : 'content-top-margin'">
+  </mat-sidenav><!--[@routeAnimations]="getRouteAnimationData()"-->
+  <mat-sidenav-content [ngClass]="(isHandset$ | async) ? 'content-bottom-padding' : 'content-top-margin'" [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
 
-    <router-outlet></router-outlet>
+    <router-outlet #o="outlet"></router-outlet>
 
   </mat-sidenav-content>
 </mat-sidenav-container>
