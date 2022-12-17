@@ -13,5 +13,6 @@ export class TrainingTileComponent {
   @Input() training!:Training
 
   @Output() deleteTrainingEvent: EventEmitter<Training> = new EventEmitter<Training>()
+  @Output() editTrainingEvent: EventEmitter<Training> = new EventEmitter<Training>()
 
 }

@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, map, Observable, switchMap } from 'rxjs';
 import { Training } from 'src/app/core/models/training';
 import { TrainingsService } from 'src/app/core/services/trainings.service';
+import { DialogAddTrainingSessionComponent } from '../dialog-add-training-session/dialog-add-training-session.component';
 
 @Component({
   selector: 'app-my-training',
@@ -12,7 +14,12 @@ import { TrainingsService } from 'src/app/core/services/trainings.service';
 })
 export class MyTrainingComponent implements OnInit {
 
-  constructor(private activatedRoute:ActivatedRoute, private router:Router, private srvc:TrainingsService) { }
+  constructor(
+    private activatedRoute:ActivatedRoute, 
+    private router:Router, 
+    private srvc:TrainingsService, 
+    public dialog:MatDialog
+  ) { }
 
   idTraining$!:Observable<number>
   training$!:Observable<Training>
@@ -22,7 +29,7 @@ export class MyTrainingComponent implements OnInit {
   daysSelected:any[] = []
   
 
-  actionFromChild(action: string): void {
+  actionFromChildToolbar(action: string): void {
     console.log(action,this.daysSelected)
     this.srvc.trainingSessionsAction(this.daysSelected, action).subscribe({
       next: () => {
@@ -38,19 +45,38 @@ export class MyTrainingComponent implements OnInit {
     })
   }
   
-  editFromChild(edit:boolean) {
+  editFromChildToolbar(edit:boolean) {
     this.edit = edit
     console.log('EDYCJAAA: '+this.edit)
   }
 
-  changeMonthFromChild(month:number) {
+  changeMonthFromChildCalendar(month:number) {
     console.log('miesiac: '+month)
     this.monthSelected = month
     this.monthSelectedSub$.next(month)
   }
 
-  daysSelectedFromChild(days: any[]) {
+  daysSelectedFromChildCalendar(days: any[]) {
     this.daysSelected = days
+  }
+
+  addNewFromChildCalendar(date: string){
+    console.log('ADDING NEW FOR: '+date)
+    const dialogRef = this.dialog.open(DialogAddTrainingSessionComponent, {
+      data: {name:'', date:date, action:'Add new' }
+    })
+
+    dialogRef.afterClosed().subscribe((result: any) =>{
+      if(result) {
+        this.srvc.saveSession({id:0,...result}).subscribe({
+          next: () =>{
+            setTimeout(()=>{
+              this.monthSelectedSub$.next(this.monthSelected)
+            })
+          }
+        })
+      }
+    })
   }
 
   addMonths(numOfMonths:number, date = new Date()) {

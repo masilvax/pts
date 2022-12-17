@@ -1,28 +1,27 @@
-<app-training-toolbar (actionEvent)="actionFromChild($event)" (editEvent)="editFromChild($event)"></app-training-toolbar>
-
-<mat-toolbar class="component-toolbar">My Training</mat-toolbar>
+<app-training-toolbar (actionEvent)="actionFromChildToolbar($event)" (editEvent)="editFromChildToolbar($event)"></app-training-toolbar>
 
 <main>
-    <div *ngIf="training$ | async as t" class="main-list">
+<mat-toolbar class="component-toolbar">My Training</mat-toolbar>
 
-        <mat-card [class.mat-elevation-z0]="true">
-            <div>{{t.nazwa}}</div>
-        </mat-card>
-        <!--     <div>{{t.nazwa}} {{t | json}}</div>
-    <div *ngFor="let s of t.sesje">{{s.title}} {{s.date}}</div>
+    <div class="main-content">
+        <div class="main-list" *ngIf="training$ | async as t">
 
-    <button (click)="changeMonth('next')">next</button>
-    <button (click)="changeMonth('prev')">prev</button> -->
-        <mat-card [class.mat-elevation-z0]="true">
-            <app-training-calendar
-             [edit]="edit"
-             [daysSessioned]="t.sesje!" 
-             (changeMonthEvent)="changeMonthFromChild($event)"
-             (daysSelectedEvent)="daysSelectedFromChild($event)"
-             [daysSelected]="daysSelected"
-             >
-            </app-training-calendar>
-        </mat-card>
+            <div class="header">
+                <h1>{{t.nazwa}}</h1>
+            </div>
 
+            <mat-card [class.mat-elevation-z0]="true" class="calendar-card">
+                <app-training-calendar
+                [edit]="edit"
+                [daysSessioned]="t.sesje!" 
+                [daysSelected]="daysSelected"
+                (changeMonthEvent)="changeMonthFromChildCalendar($event)"
+                (daysSelectedEvent)="daysSelectedFromChildCalendar($event)"
+                (addNewEvent)="addNewFromChildCalendar($event)"
+                >
+                </app-training-calendar>
+            </mat-card>
+
+        </div>
     </div>
 </main>

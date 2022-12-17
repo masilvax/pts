@@ -9,12 +9,23 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-main {
+.main-content {
   padding: 8px;
+  flex-grow: 1;
+  display:flex;
+  flex-direction: column;
 }
+
+main {
+  min-height:100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .component-toolbar{
   justify-content: end;
   padding-right: 80px !important;
+  background-color: transparent !important;
 }
 
 @import '@angular/material/theming';
@@ -54,7 +65,7 @@ $mat-theming-theme-dark: mat-dark-theme((
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($mat-theming-theme-dark);
+// @include angular-material-theme($mat-theming-theme-dark);
 
 .theme-dark {
     @include angular-material-theme($mat-theming-theme-dark);
@@ -62,4 +73,51 @@ $mat-theming-theme-dark: mat-dark-theme((
 
 .theme-light {
     @include angular-material-theme($mat-theming-theme);
+}
+.theme-dark .main-background {
+  background: linear-gradient(#212121, #e040fb)
+}
+.theme-light .main-background {
+  background: linear-gradient(whitesmoke, #00bcd4);
+}
+
+.theme-dark .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+$darkColor:#282828;
+$lessDarkColor:#2a2a2a;
+$lightColor:#f8f8f8;
+
+.theme-dark .mat-card {
+  background: $darkColor;
+  border-radius: 32px;
+}
+.theme-light .mat-card {
+  background: $lightColor;
+  border-radius: 32px;
+}
+
+.theme-dark .mat-drawer-container {
+  background: $darkColor;
+}
+.theme-light .mat-drawer-container {
+  background: $lightColor;
+}
+
+.theme-dark .mat-menu-panel {
+  background: $lessDarkColor;
+  border-radius: 16px;
+}
+.theme-light .mat-menu-panel {
+  border-radius: 16px;
+}
+
+.theme-dark .mat-dialog-container {
+  border-radius: 32px;
+  background: $lessDarkColor;
+/*   backdrop-filter: blur(100px); */
+}
+.theme-light .mat-dialog-container {
+  border-radius: 32px;
 }

@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>{{data.action}} training</h1>
+<h1 mat-dialog-title>{{data.action}} training session</h1>
 <div mat-dialog-content>
-  <!-- <p>type training name</p> -->
+  <p>{{data.date}}</p>
   <mat-form-field appearance="outline">
-    <mat-label>training name</mat-label>
+    <mat-label>session name</mat-label>
     <input matInput [(ngModel)]="data.name" required="true">
   </mat-form-field>
 </div>

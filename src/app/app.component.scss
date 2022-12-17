@@ -24,3 +24,6 @@
 .content-bottom-padding {
   padding-bottom: 56px;
 }
+.theme-dark.mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, 0.5);
+}

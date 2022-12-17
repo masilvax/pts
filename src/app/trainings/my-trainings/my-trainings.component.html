@@ -1,10 +1,13 @@
-<app-trainings-toolbar (addNewTrainingEvent)="addNew($event)"></app-trainings-toolbar>
-
+<app-trainings-toolbar (addNewTrainingEvent)="addNewTraining($event)"></app-trainings-toolbar>
+<main>
 <mat-toolbar class="component-toolbar">My Trainings</mat-toolbar>
 
-<main class="main-list" *ngIf="myTrainings$ | async as trainings">
+    <div class="main-list" *ngIf="myTrainings$ | async as trainings">
 
-    <div *ngFor="let t of trainings">
-        <app-training-tile [training]="t" (deleteTrainingEvent)="deleteTraining($event)"></app-training-tile>
+        <div *ngFor="let t of trainings">
+            <app-training-tile [training]="t" (deleteTrainingEvent)="deleteTraining($event)" (editTrainingEvent)="editTraining($event)"></app-training-tile>
+        </div>
+
     </div>
+
 </main>

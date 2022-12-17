@@ -1,9 +1,10 @@
-<app-training-session-toolbar (actionEvent)="actionFromToolbar($event)"></app-training-session-toolbar>
 <!-- <main class="main-list" *ngIf="session$ | async as ses"> -->
-
+<main>
 <mat-toolbar class="component-toolbar">My Training Session</mat-toolbar>
 
-<main class="main-list" *ngIf="session as ses">
+<div class="main-list" *ngIf="session as ses">
+
+    <app-training-session-toolbar (actionEvent)="actionFromToolbar($event)" [backLink]="'../../'+ses.id_treningu"></app-training-session-toolbar>
 
     {{ses.nazwa}}
     {{ses.cwiczenia?.length}}
@@ -21,5 +22,6 @@
     (moveUpEvent)="actionFromTile($event,'moveUp')"
     (moveDownEvent)="actionFromTile($event,'moveDown')"
     (deleteEvent)="actionFromTile($event,'deleteExercise')"></app-exercise-tile>
+</div>
 
 </main>

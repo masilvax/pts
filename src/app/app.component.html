@@ -2,7 +2,7 @@
 
 <app-user-tray></app-user-tray>
 
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container czerwony">
   <mat-sidenav #drawer class="sidenav"
     fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
@@ -13,7 +13,7 @@
     <app-navigation (out)="drawer.toggle()"></app-navigation>
 
   </mat-sidenav><!--[@routeAnimations]="getRouteAnimationData()"-->
-  <mat-sidenav-content [ngClass]="(isHandset$ | async) ? 'content-bottom-padding' : 'content-top-margin'" [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
+  <mat-sidenav-content class="main-background" [ngClass]="(isHandset$ | async) ? 'content-bottom-padding' : 'content-top-margin'" [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
 
     <router-outlet #o="outlet"></router-outlet>
 

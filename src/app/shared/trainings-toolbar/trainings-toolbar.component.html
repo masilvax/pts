@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbar" [ngClass]="(isHandset$ | async) ? 'bottom-toolbar' : 'top-toolbar'" color="accent">
-  <button (click)="addNewTrainingEvent.emit()" mat-button aria-label="add new training">
+  <button (click)="addNewTrainingEvent.emit('')" mat-button aria-label="add new training">
     <mat-icon>add</mat-icon> add new training
   </button>
 </mat-toolbar>

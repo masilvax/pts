@@ -36,8 +36,9 @@ export class TrainingCalendarComponent implements OnChanges {
     this._removeSelection = val
   } */
 
-  @Output() changeMonthEvent:EventEmitter<number> = new EventEmitter<number>()
-  @Output() daysSelectedEvent:EventEmitter<any[]> = new EventEmitter<any[]>()
+  @Output() changeMonthEvent: EventEmitter<number> = new EventEmitter<number>()
+  @Output() daysSelectedEvent: EventEmitter<any[]> = new EventEmitter<any[]>()
+  @Output() addNewEvent: EventEmitter<string> = new EventEmitter<string>()
 
   constructor(private router: Router) {}
 
@@ -73,13 +74,13 @@ export class TrainingCalendarComponent implements OnChanges {
 
   select(event: any, calendar: any) {
     //console.log('EDYCJA Z KLIKA W DZIEŃ: '+this.edit)
-    const date = this.dateToString(event)    
+    const dateStr = this.dateToString(event)    
 
     if(this.edit){
-      let ds = this.daysSessioned.find(ds => ds.data == date)
+      let ds = this.daysSessioned.find(ds => ds.data == dateStr)
       if(ds) {
-        const dateObj = { date: date, id: ds.id };
-        const index = this.daysSelected.findIndex((x) => x.date == date);
+        const dateObj = { date: dateStr, id: ds.id };
+        const index = this.daysSelected.findIndex((x) => x.date == dateStr);
         if (index < 0) this.daysSelected.push(dateObj);
         else this.daysSelected.splice(index, 1);
 
@@ -90,12 +91,13 @@ export class TrainingCalendarComponent implements OnChanges {
         this.daysSelectedEvent.emit(this.daysSelected)
       }
     }else{
-      const session:TrainingSession | undefined = this.daysSessioned.find((x) => x.data == date)
+      const session:TrainingSession | undefined = this.daysSessioned.find((x) => x.data == dateStr)
       if(session){
         console.log('znalazłem sesje: '+ session.id, session.nazwa)//router navi
         this.router.navigate(['trainings/session/',session.id])
       }else{
-        console.log('DODAJE NOWĄ sesję')//eventemitter, zeby dialog z parenta odpalic
+        console.log('DODAJE NOWĄ sesję: '+ dateStr)//eventemitter, zeby dialog z parenta odpalic
+        this.addNewEvent.emit(dateStr)
       }
     }
   }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { last, Observable, share, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Training } from '../models/training';
+import { TrainingSession } from '../models/training-session';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class TrainingsService {
   }
 
   addNewTraining(training: Training): Observable<any> {
-    let akcja = 'dodajTrening'
+    let akcja = 'saveTraining'
     return this.http.post<any>(this.ApiUrl+'/http_treningi.php',{akcja,training}).pipe(
       share()
     )
@@ -49,6 +50,14 @@ export class TrainingsService {
   }
   private komparujKurwa(a:string,b:string, isAsc: boolean) {// it doesn't compare without this callback function
     return (a < b ? -1 : 1)* (isAsc ? 1 : -1)
+  }
+
+  saveSession(trainigSession: TrainingSession): Observable<any> {
+    const parapapampam = {
+      akcja: 'saveSession',
+      trainigSession
+    }
+    return this.http.post<any>(this.ApiUrl+'/http_sesja.php',parapapampam)
   }
 
 }

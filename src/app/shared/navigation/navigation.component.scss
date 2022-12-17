@@ -22,7 +22,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: rgba(128,128,128,.1);
+  /* background-color: rgba(128,128,128,.1); */
+  /* background-image: linear-gradient(#e040fb,#00bcd4); */
 }
 .nav-list-wrapper.handset{
   flex-direction: row-reverse;
@@ -33,6 +34,10 @@
   writing-mode: vertical-rl;
   align-items: center;
   justify-content: center;
+  background-image: linear-gradient(180deg,#00bcd4,#e040fb);
+}
+.toolbar.not-handset {
+  background-image: linear-gradient(90deg,#00bcd4,#e040fb);
 }
 
 .nav-list > a {

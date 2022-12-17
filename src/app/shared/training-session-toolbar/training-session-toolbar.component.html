@@ -3,7 +3,7 @@
 
     <div *ngIf="!(isWebLandscape$ | async)">
   
-      <button mat-icon-button aria-label="move for previous day" >
+      <button mat-icon-button aria-label="move for previous day" [routerLink]="[backLink]">
         <mat-icon>arrow_back</mat-icon>
       </button>
   

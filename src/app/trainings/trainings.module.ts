@@ -16,6 +16,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MyTrainingComponent } from './my-training/my-training.component';
 import { MatCardModule } from '@angular/material/card';
 import { MyTrainingSessionComponent } from './my-training-session/my-training-session.component';
+import { DialogAddTrainingSessionComponent } from './dialog-add-training-session/dialog-add-training-session.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MyTrainingSessionComponent } from './my-training-session/my-training-se
     MyTrainingsComponent,
     DialogAddTrainingComponent,
     MyTrainingComponent,
-    MyTrainingSessionComponent
+    MyTrainingSessionComponent,
+    DialogAddTrainingSessionComponent
   ],
   imports: [
     CommonModule,

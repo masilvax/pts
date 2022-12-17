@@ -16,6 +16,10 @@
             <mat-icon>more_horiz</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editTrainingEvent.emit(training)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
             <button mat-menu-item (click)="deleteTrainingEvent.emit(training)">
                 <mat-icon>delete</mat-icon>
                 <span>Delete</span>

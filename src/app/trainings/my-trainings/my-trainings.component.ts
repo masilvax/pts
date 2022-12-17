@@ -25,11 +25,11 @@ export class MyTrainingsComponent implements OnInit {
   //loader: boolean = false;
   private subscriptions: Subscription[] = []
 
-  addNew(trainingName: string): void {
+  addNewTraining(trainingName: string): void {
 
     const dialogRef = this.dialog.open(DialogAddTrainingComponent, {
       width: '260px',
-      data: trainingName,
+      data: {name:trainingName, action:'Add new'},
     });
     
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -38,7 +38,7 @@ export class MyTrainingsComponent implements OnInit {
         //dodaja nowy trening, czyli subscribe i w srodku:
         let trainig:Training = {
           id:0,
-          nazwa:result,
+          nazwa:result.name,
         }
         this.subscriptions.push(
           this.srvc.addNewTraining(trainig).subscribe({
@@ -52,7 +52,37 @@ export class MyTrainingsComponent implements OnInit {
             }
           })
         )
-        
+      }
+    });
+  }
+
+  editTraining(training: Training): void {
+
+    const dialogRef = this.dialog.open(DialogAddTrainingComponent, {
+      width: '260px',
+      data: {name:training.nazwa, action:'Edit'},
+    });
+    
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        console.log('The dialog was closed', result);
+        //dodaja nowy trening, czyli subscribe i w srodku:
+        let trainig:Training = {
+          id:training.id,
+          nazwa:result.name,
+        }
+        this.subscriptions.push(
+          this.srvc.addNewTraining(trainig).subscribe({
+            next: (res) => {
+              console.log(res)
+              this.refreshTrainigs$.next(true)
+            },
+            error: (err) => {
+              this.refreshTrainigs$.next(true)
+              console.error(err)
+            }
+          })
+        )
       }
     });
   }
