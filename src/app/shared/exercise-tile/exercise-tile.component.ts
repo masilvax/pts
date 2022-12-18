@@ -33,7 +33,18 @@ export class ExerciseTileComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('tere: ', this.exercise)
-    this.exercise.zrobione = JSON.parse(this.exercise.zrobione.toString())
+    if(this.exercise.zrobione.length > 0) {
+      this.exercise.zrobione = JSON.parse(this.exercise.zrobione.toString())
+      if(this.exercise.zrobione.length !== this.exercise.serie){
+        console.log('zrobione niezgodne z l. serii - zrobione: ' + this.exercise.zrobione.toString() + ', l.serii: ' + this.exercise.serie)
+      }
+    } else {
+      this.exercise.zrobione = []
+      for(let i=0; i<this.exercise.serie; i++){
+        this.exercise.zrobione.push(0)
+      }
+    }
+    
     this.exercise.powt = JSON.parse(this.exercise.powt.toString())
     this.exercise.ciezar = JSON.parse(this.exercise.ciezar.toString())
   }

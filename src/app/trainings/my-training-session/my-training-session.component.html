@@ -1,27 +1,31 @@
 <!-- <main class="main-list" *ngIf="session$ | async as ses"> -->
 <main>
-<mat-toolbar class="component-toolbar">My Training Session</mat-toolbar>
 
-<div class="main-list" *ngIf="session as ses">
+    <mat-toolbar class="component-toolbar">My Training Session</mat-toolbar>
 
-    <app-training-session-toolbar (actionEvent)="actionFromToolbar($event)" [backLink]="'../../'+ses.id_treningu"></app-training-session-toolbar>
+    <div *ngIf="session as ses">
 
-    {{ses.nazwa}}
-    {{ses.cwiczenia?.length}}
-    {{ses.data | date}}
+        <app-training-session-toolbar (actionEvent)="actionFromToolbar($event)" [backLink]="'../../'+ses.id_treningu"></app-training-session-toolbar>
 
-    <app-exercise-tile *ngFor="let s of ses.cwiczenia; first as frst; last as lst"
-    [exercise]="s"
-    [isTrainer]="isTrainer"
-    [isFirst]="frst"
-    [isLast]="lst"
-    (editEvent)="editExersise($event)"
-    (doneEvent)="doneUndone($event)"
-    (supersetEvent)="actionFromTile($event,'superset')"
-    (unsupersetEvent)="actionFromTile($event,'unsuperset')"
-    (moveUpEvent)="actionFromTile($event,'moveUp')"
-    (moveDownEvent)="actionFromTile($event,'moveDown')"
-    (deleteEvent)="actionFromTile($event,'deleteExercise')"></app-exercise-tile>
-</div>
+        <div class="main-list">
+
+            {{ses.nazwa}}
+            {{ses.cwiczenia?.length}}
+            {{ses.data | date}}
+
+            <app-exercise-tile *ngFor="let s of ses.cwiczenia; first as frst; last as lst"
+            [exercise]="s"
+            [isTrainer]="isTrainer"
+            [isFirst]="frst"
+            [isLast]="lst"
+            (editEvent)="editExersise($event)"
+            (doneEvent)="doneUndone($event)"
+            (supersetEvent)="actionFromTile($event,'superset')"
+            (unsupersetEvent)="actionFromTile($event,'unsuperset')"
+            (moveUpEvent)="actionFromTile($event,'moveUp')"
+            (moveDownEvent)="actionFromTile($event,'moveDown')"
+            (deleteEvent)="actionFromTile($event,'deleteExercise')"></app-exercise-tile>
+        </div>
+    </div>
 
 </main>

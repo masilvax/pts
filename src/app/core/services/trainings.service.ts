@@ -52,10 +52,11 @@ export class TrainingsService {
     return (a < b ? -1 : 1)* (isAsc ? 1 : -1)
   }
 
-  saveSession(trainigSession: TrainingSession): Observable<any> {
+  saveSession(trainingSession: TrainingSession): Observable<any> {
+    console.log(trainingSession)
     const parapapampam = {
       akcja: 'saveSession',
-      trainigSession
+      trainingSession
     }
     return this.http.post<any>(this.ApiUrl+'/http_sesja.php',parapapampam)
   }

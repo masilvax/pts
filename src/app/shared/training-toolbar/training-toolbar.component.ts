@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
 
 @Component({
@@ -23,8 +23,8 @@ export class TrainingToolbarComponent {
     shareReplay()
   );
 
+  @Input() backLink?:string
   @Output() actionEvent: EventEmitter<string> = new EventEmitter<string>()
-
   @Output() editEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
   edit:boolean = false
 

@@ -2,7 +2,7 @@
 
   <div *ngIf="!edit">
 
-    <button mat-button aria-label="add new training">
+    <button mat-button aria-label="add new training" [routerLink]="[backLink]">
       <mat-icon>arrow_back</mat-icon> back
     </button>
 
@@ -22,11 +22,11 @@
       <mat-icon>skip_next</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="copy for next week" (click)="actionEvent.emit('nextWeek')">
+    <button mat-icon-button aria-label="copy for next week" (click)="actionEvent.emit('copyForNextWeek')">
       <mat-icon>dynamic_feed</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="delete" (click)="actionEvent.emit('delete')">
+    <button mat-icon-button aria-label="delete" (click)="actionEvent.emit('deleteSessions')">
       <mat-icon>delete</mat-icon>
     </button>
 
@@ -46,11 +46,11 @@
       <mat-icon>skip_next</mat-icon> move for previous day
     </button>
 
-    <button mat-button aria-label="copy for next week" (click)="actionEvent.emit('nextWeek')">
+    <button mat-button aria-label="copy for next week" (click)="actionEvent.emit('copyForNextWeek')">
       <mat-icon>dynamic_feed</mat-icon> copy for next week
     </button>
 
-    <button mat-button aria-label="delete" (click)="actionEvent.emit('delete')">
+    <button mat-button aria-label="delete" (click)="actionEvent.emit('deleteSessions')">
       <mat-icon>delete</mat-icon> delete
     </button>
 

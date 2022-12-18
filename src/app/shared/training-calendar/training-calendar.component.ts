@@ -20,6 +20,9 @@ export class TrainingCalendarComponent implements OnChanges {
 
   @Input() edit: boolean = false;
   @Input() daysSessioned!: TrainingSession[]//after action (move, copy, delete) cleared in parent
+  //id_treningu for adding a new session, since working with streams i would need to subscribe to it in training-component to get that
+  //but with this trick (passing it here from parent element - training-component) I don't have to
+  @Input() trainingId!: number 
 
 /*   private _removeSelection: boolean = true;
 
@@ -38,7 +41,7 @@ export class TrainingCalendarComponent implements OnChanges {
 
   @Output() changeMonthEvent: EventEmitter<number> = new EventEmitter<number>()
   @Output() daysSelectedEvent: EventEmitter<any[]> = new EventEmitter<any[]>()
-  @Output() addNewEvent: EventEmitter<string> = new EventEmitter<string>()
+  @Output() addNewEvent: EventEmitter<{date:string,trainingId:number}> = new EventEmitter<{date:string,trainingId:number}>()
 
   constructor(private router: Router) {}
 
@@ -96,8 +99,8 @@ export class TrainingCalendarComponent implements OnChanges {
         console.log('znalazłem sesje: '+ session.id, session.nazwa)//router navi
         this.router.navigate(['trainings/session/',session.id])
       }else{
-        console.log('DODAJE NOWĄ sesję: '+ dateStr)//eventemitter, zeby dialog z parenta odpalic
-        this.addNewEvent.emit(dateStr)
+        console.log('DODAJE NOWĄ sesję: '+ dateStr+'-'+this.trainingId)//eventemitter, zeby dialog z parenta odpalic
+        this.addNewEvent.emit({date:dateStr, trainingId:this.trainingId})
       }
     }
   }

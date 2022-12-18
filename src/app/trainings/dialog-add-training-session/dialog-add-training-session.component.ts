@@ -10,7 +10,7 @@ export class DialogAddTrainingSessionComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogAddTrainingSessionComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {action:string,name:string,date:string},
+    @Inject(MAT_DIALOG_DATA) public data: {action:string,nazwa:string,data:string},
   ) {}
 
   onNoClick(): void {

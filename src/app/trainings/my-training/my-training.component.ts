@@ -39,6 +39,7 @@ export class MyTrainingComponent implements OnInit {
         })
       },
       error: (err) => {
+        this.daysSelected.splice(0,this.daysSelected.length)
         this.monthSelectedSub$.next(this.monthSelected)
         console.error(err)
       }
@@ -60,25 +61,29 @@ export class MyTrainingComponent implements OnInit {
     this.daysSelected = days
   }
 
-  addNewFromChildCalendar(date: string){
-    console.log('ADDING NEW FOR: '+date)
+  addNewSessionFromChildCalendar(event:{date: string, trainingId:number}){
+    console.log('ADDING NEW FOR: ',event)
     const dialogRef = this.dialog.open(DialogAddTrainingSessionComponent, {
-      data: {name:'', date:date, action:'Add new' }
+      data: {nazwa:'', data:event.date, action:'Add new' }
     })
 
     dialogRef.afterClosed().subscribe((result: any) =>{
       if(result) {
-        this.srvc.saveSession({id:0,...result}).subscribe({
-          next: () =>{
+        this.srvc.saveSession({id:0, id_treningu:event.trainingId , ...result}).subscribe({
+          next: (response) =>{
+            console.log(response)
             setTimeout(()=>{
               this.monthSelectedSub$.next(this.monthSelected)
             })
+            if(response.odp !== 'OK')
+              alert(response.odp)
           }
         })
       }
     })
   }
 
+  // for range of months needed in backend
   addMonths(numOfMonths:number, date = new Date()) {
     date.setMonth(date.getMonth() + numOfMonths);
     return this.dateToString(date);

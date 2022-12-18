@@ -10,14 +10,28 @@ export const fader =
                 top: 0,
                 left: 0,
                 width: '100%',
+                height: '80%',
                 opacity: 0,
+                overflow: 'hidden'
               })
             ], { optional: true }),
             query(':enter',
                 animate('600ms ease',
-                    style({opacity: 1})
+                    style({
+                        opacity: 1,
+                        height:'100%'
+                    })
                 ),
                 { optional: true }
-            )
+            ),
+/*             query(':leave',
+                animate('0ms ease',
+                    style({
+                        height: '1000px',
+                        bacground: 'yellow'
+                    })
+                ),
+                { optional: true }
+            ) */
         ])
     ])

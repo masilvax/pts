@@ -1,4 +1,4 @@
-<app-training-toolbar (actionEvent)="actionFromChildToolbar($event)" (editEvent)="editFromChildToolbar($event)"></app-training-toolbar>
+<app-training-toolbar (actionEvent)="actionFromChildToolbar($event)" (editEvent)="editFromChildToolbar($event)" [backLink]="'../'"></app-training-toolbar>
 
 <main>
 <mat-toolbar class="component-toolbar">My Training</mat-toolbar>
@@ -15,9 +15,10 @@
                 [edit]="edit"
                 [daysSessioned]="t.sesje!" 
                 [daysSelected]="daysSelected"
+                [trainingId]="t.id"
                 (changeMonthEvent)="changeMonthFromChildCalendar($event)"
                 (daysSelectedEvent)="daysSelectedFromChildCalendar($event)"
-                (addNewEvent)="addNewFromChildCalendar($event)"
+                (addNewEvent)="addNewSessionFromChildCalendar($event)"
                 >
                 </app-training-calendar>
             </mat-card>

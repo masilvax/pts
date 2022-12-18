@@ -22,8 +22,12 @@
   margin-top: 0;/*64px;*/
 }
 .content-bottom-padding {
-  padding-bottom: 56px;
+  padding-bottom: 56px; 
+  /*height: calc(100vh - 56px);/*cause of router animations*/
 }
 .theme-dark.mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgba(0, 0, 0, 0.5);
+}
+.owijacz-router-animacyjny {
+  height: 100vh;
 }
