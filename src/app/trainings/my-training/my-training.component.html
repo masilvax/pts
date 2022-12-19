@@ -8,6 +8,16 @@
 
             <div class="header">
                 <h1>{{t.nazwa}}</h1>
+
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="more" class="more-btn">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                </mat-menu>
             </div>
 
             <mat-card [class.mat-elevation-z0]="true" class="calendar-card">

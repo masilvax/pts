@@ -9,6 +9,12 @@
     align-items: center;
     display: flex;
     flex-grow: 1;
+    position: relative;
+}
+.more-btn {
+    position: absolute;
+    top:8px;
+    right:8px;
 }
 .calendar-card {
     background: transparent;

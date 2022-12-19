@@ -17,6 +17,9 @@ import { MyTrainingComponent } from './my-training/my-training.component';
 import { MatCardModule } from '@angular/material/card';
 import { MyTrainingSessionComponent } from './my-training-session/my-training-session.component';
 import { DialogAddTrainingSessionComponent } from './dialog-add-training-session/dialog-add-training-session.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
+/* import { MAT_DATE_LOCALE } from '@angular/material/core'; */
 
 
 @NgModule({
@@ -39,7 +42,12 @@ import { DialogAddTrainingSessionComponent } from './dialog-add-training-session
     MatIconModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    MatDatepickerModule,
+    MatMenuModule,
     SharedModule
-  ]
+  ],
+/*   providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ] */
 })
 export class TrainingsModule { }

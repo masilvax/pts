@@ -4,3 +4,16 @@
     gap: 8px;
     padding: 8px;
 }
+.header {
+    justify-content: space-evenly;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 30vh;
+    position: relative;
+}
+.more-btn {
+    position: absolute;
+    top:8px;
+    right:8px;
+}

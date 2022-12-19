@@ -68,6 +68,7 @@ export class MyTrainingComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe((result: any) =>{
+      console.log(result)
       if(result) {
         this.srvc.saveSession({id:0, id_treningu:event.trainingId , ...result}).subscribe({
           next: (response) =>{

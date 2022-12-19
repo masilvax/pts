@@ -13,8 +13,10 @@ export class DialogAddTrainingSessionComponent {
     @Inject(MAT_DIALOG_DATA) public data: {action:string,nazwa:string,data:string},
   ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onSubmit(): void {
+    let date:Date = new Date(this.data.data)
+    this.data.data = date.getFullYear() + '-' + (date.getMonth()+1) +'-'+ date.getDate()
+    this.dialogRef.close(this.data);
   }
 
 }

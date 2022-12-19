@@ -9,10 +9,22 @@
 
         <div class="main-list">
 
-            {{ses.nazwa}}
-            {{ses.cwiczenia?.length}}
-            {{ses.data | date}}
+            <div class="header">
+                <h1>{{ses.nazwa}}</h1>
+                <h2>{{ses.data | date}}</h2>
 
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="more" class="more-btn">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                </mat-menu>
+
+            </div>
+            
             <app-exercise-tile *ngFor="let s of ses.cwiczenia; first as frst; last as lst"
             [exercise]="s"
             [isTrainer]="isTrainer"
