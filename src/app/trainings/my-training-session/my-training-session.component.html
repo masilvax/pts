@@ -8,8 +8,7 @@
         <app-training-session-toolbar (actionEvent)="actionFromToolbar($event)" [backLink]="'../../'+ses.id_treningu"></app-training-session-toolbar>
 
         <div class="main-list">
-
-            <div class="header">
+            <div class="header" [ngClass]="(hideHeader$ | async) && (ses.cwiczenia!.length > 3) ? 'header-hidden' : ''">
                 <h1>{{ses.nazwa}}</h1>
                 <h2>{{ses.data | date}}</h2>
 

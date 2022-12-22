@@ -7,6 +7,7 @@ import { User } from './core/models/user';
 import { AuthService } from './core/services/auth.service';
 import { LoadingService } from './core/services/loading.service';
 import { fader } from './core/animations';
+import { ScrollService } from './core/services/scroll.service';
 
 @Component({
   selector: 'app-root',
@@ -49,7 +50,8 @@ export class AppComponent implements OnInit/* , DoCheck */{
     private auth:AuthService,
     //private load:LoadingService,
     private breakpointObserver: BreakpointObserver,
-    private contexts: ChildrenOutletContexts
+    private contexts: ChildrenOutletContexts,
+    private scrolSrvc: ScrollService
     //private router: Router
     ) {}
 //   ngDoCheck(): void {
@@ -85,6 +87,16 @@ export class AppComponent implements OnInit/* , DoCheck */{
 
   getRouteAnimationData() {
     return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
+  }
+
+  getYPosition(e: Event): number {
+    console.log((e.target as Element).scrollTop)
+    if((e.target as Element).scrollTop > 0){
+      this.scrolSrvc.scroll()
+    }else{
+      this.scrolSrvc.unscroll()
+    }
+    return (e.target as Element).scrollTop;
   }
 
 }

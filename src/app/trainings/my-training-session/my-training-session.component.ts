@@ -5,6 +5,7 @@ import { BehaviorSubject, combineLatest, map, Observable, switchMap, takeUntil }
 import { Destroyer } from 'src/app/core/destroyer.class';
 import { Exercise } from 'src/app/core/models/exercise';
 import { TrainingSession } from 'src/app/core/models/training-session';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 import { TrainingSessionService } from 'src/app/core/services/training-session.service';
 import { DialogAddExerciseComponent } from 'src/app/shared/dialog-add-exercise/dialog-add-exercise.component';
 
@@ -24,18 +25,23 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
 
   isTrainer: boolean = false // for child elmnt (exercise-tile)
 
+  hideHeader$: BehaviorSubject<boolean> = this.scrollSrvc.isScrolled//boolean = false
+
   constructor(
     private activatedRoute: ActivatedRoute, 
     private srvc:TrainingSessionService,
-    private dialog: MatDialog) {
-    super()
+    private dialog: MatDialog,
+    private scrollSrvc: ScrollService) {    
+      super()
   }
 
   editExersise(exercise: Exercise) {
     console.log('edit: ', exercise)    
 
     const dialogRef = this.dialog.open(DialogAddExerciseComponent,{
-      data: JSON.parse(JSON.stringify(exercise))
+      data: JSON.parse(JSON.stringify(exercise)),
+      maxWidth: '95vw',
+      maxHeight: '90vh'
     })
 
     dialogRef.afterClosed().subscribe(result => {
@@ -54,26 +60,6 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
         this.refreshSession$.next(true)
       }
     })
-    
-/*     switch (action){
-      case 'superset':
-        this.srvc.saveExercise(exercise).subscribe({
-          next: (res) => {
-            this.refreshSession$.next(true)
-          }
-        })
-        break
-
-      case 'unsuperset':
-        this.srvc.saveExercise(exercise).subscribe({
-          next: (res) => {
-            this.refreshSession$.next(true)
-          }
-        })
-        break
-  
-    } */
-
   }
 
   actionFromToolbar(action: string) {

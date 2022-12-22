@@ -6,12 +6,12 @@
 
 <div mat-dialog-content class="content">
   <!-- <p>type training name</p> -->
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="width-150-px">
     <mat-label>exercise name</mat-label>
     <input matInput [(ngModel)]="data.nazwa_krotka" required="true" name="nazwa_krotka">
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="width-100-px">
+  <mat-form-field appearance="outline" class="width-70-px">
     <mat-label>unit</mat-label>
     <mat-select [(ngModel)]="data.jedn_intens" required="true" name="jedn_intens">
       <mat-option value="kg">kg</mat-option>
@@ -26,13 +26,13 @@
     <textarea matInput [(ngModel)]="data.nazwa" name="nazwa"></textarea>
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="width-150-px">
-    <mat-label>pauses between sets</mat-label>
+  <mat-form-field appearance="outline" class="width-100-px">
+    <mat-label>p. between sets</mat-label>
     <input matInput [(ngModel)]="data.przerwy_serie" type="number" min="0" required="true" name="przerwy_serie">
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="width-150-px">
-    <mat-label>pause after exercise</mat-label>
+  <mat-form-field appearance="outline" class="width-100-px">
+    <mat-label>p. after exercise</mat-label>
     <input matInput [(ngModel)]="data.przerwa_po" type="number" min="0" required="true" name="przerwa_po">
   </mat-form-field>
 

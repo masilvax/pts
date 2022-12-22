@@ -14,7 +14,7 @@
 
   </mat-sidenav><!--[@routeAnimations]="getRouteAnimationData()"-->
 
-  <mat-sidenav-content class="main-background" [ngClass]="(isHandset$ | async) ? 'content-bottom-padding' : 'content-top-margin'" [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
+  <mat-sidenav-content (scroll)="getYPosition($event)" class="main-background" [ngClass]="(isHandset$ | async) ? 'content-bottom-padding' : 'content-top-margin'" [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
     <!-- <div  [@routeAnimations]="o.isActivated ? o.activatedRoute : ''" class="owijacz-router-animacyjny"> -->
       <router-outlet #o="outlet"></router-outlet>
     <!-- </div> -->

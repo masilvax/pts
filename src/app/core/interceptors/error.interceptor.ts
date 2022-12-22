@@ -24,7 +24,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           console.log('WYLOGOWANY 401: '+e.status+'::'+e.message)
           console.dir(e)
           this.auth.logout('tokenended')
-          throw new Error('BRAK AUTORYZACJI')
+          //throw new Error('BRAK AUTORYZACJI')
+          return of()
         }
           //this.authService.ogarnijKoniecSesji();
         console.log('FATALNY ERROR Z INTERCEPTORA: '+e.status+'::'+e.message)
