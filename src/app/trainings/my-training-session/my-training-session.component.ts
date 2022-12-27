@@ -8,6 +8,7 @@ import { TrainingSession } from 'src/app/core/models/training-session';
 import { ScrollService } from 'src/app/core/services/scroll.service';
 import { TrainingSessionService } from 'src/app/core/services/training-session.service';
 import { DialogAddExerciseComponent } from 'src/app/shared/dialog-add-exercise/dialog-add-exercise.component';
+import { DialogCountdownComponent } from 'src/app/shared/dialog-countdown/dialog-countdown.component';
 
 @Component({
   selector: 'app-my-training-session',
@@ -85,7 +86,7 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
   }
 
   doneUndone(set:any){
-    console.log(set)
+    let doneArr = JSON.parse(set.setsDone)
 
     this.srvc.doneUndone(set.exerciseId,set.setsDone).subscribe({
       next: (res) => {
@@ -100,6 +101,29 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
         console.log('kąplit')
       }
     })
+
+    if(doneArr[set.setIndex] === 1){
+      const dialogRef = this.dialog.open(DialogCountdownComponent,{
+        data: {exercises:this.session.cwiczenia, set: set},
+        maxWidth: '95vw',
+        maxHeight: '90vh'
+      })
+    }
+/*     // całe to w komponencie do odliczania chyba zrobic - przekazac tam tablice cwiczen - this.session.cwiczenia
+    console.log(doneArr.length, set.setIndex)
+    let exercise = this.session.cwiczenia?.find(ex => ex.id === set.exerciseId)
+
+    if(doneArr.length > (set.setIndex+1)) {
+      console.log('NEXT EGZERSAJZ: ' + exercise?.nazwa_krotka + ' - ' + exercise?.powt[set.setIndex+1] + ' x ' + exercise?.ciezar[set.setIndex+1] + exercise?.jedn_intens + ' - ' + exercise?.przerwy_serie)
+      //sprawdzic czy poprzedni ma superseta
+    }
+
+    if (doneArr.length <= (set.setIndex+1)) {
+      let order = exercise?.kolejnosc
+      let nextExercise = this.session.cwiczenia?.find(ex => ex.kolejnosc === order!+1)
+      console.log('NEXT EGZERSAJZ: ' + nextExercise?.nazwa_krotka + ' - ' + nextExercise?.powt[0] + ' x ' + nextExercise?.ciezar[0] + nextExercise?.jedn_intens + ' - ' + exercise?.przerwa_po)
+      //sprawdzic czy nastepny ma superseta
+    } */
   }
 
   ngOnInit(): void {

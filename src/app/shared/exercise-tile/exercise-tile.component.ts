@@ -3,7 +3,8 @@ import { Exercise } from 'src/app/core/models/exercise';
 
 interface OneSet {
   exerciseId:number,
-  setsDone:string
+  setsDone:string,
+  setIndex:number
 }
 
 @Component({
@@ -54,6 +55,7 @@ export class ExerciseTileComponent implements OnInit {
     const oneSet = {
       exerciseId: exerciseId,
       setsDone: JSON.stringify(this.exercise.zrobione),
+      setIndex: setIndex
     };
     this.doneEvent.emit(oneSet)
   }

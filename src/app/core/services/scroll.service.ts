@@ -11,12 +11,10 @@ export class ScrollService {
   constructor() { }
 
   scroll() {
-    console.log('skroluje')
     this.isScrolled.next(true)
   }
 
   unscroll() {
-    console.log('odskrolowywowuje')
     this.isScrolled.next(false)
   }
 }

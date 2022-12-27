@@ -28,6 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRippleModule} from '@angular/material/core';
+import { DialogCountdownComponent } from './dialog-countdown/dialog-countdown.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {MatRippleModule} from '@angular/material/core';
     TrainingSessionToolbarComponent,
     TrainingToolbarComponent,
     TrainingsToolbarComponent,
-    DialogAddExerciseComponent
+    DialogAddExerciseComponent,
+    DialogCountdownComponent
   ],
   imports: [
     CommonModule,

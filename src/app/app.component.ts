@@ -90,7 +90,6 @@ export class AppComponent implements OnInit/* , DoCheck */{
   }
 
   getYPosition(e: Event): number {
-    console.log((e.target as Element).scrollTop)
     if((e.target as Element).scrollTop > 0){
       this.scrolSrvc.scroll()
     }else{
