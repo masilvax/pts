@@ -121,3 +121,6 @@ $lightColor:#f8f8f8;
 .theme-light .mat-dialog-container {
   border-radius: 32px;
 }
+.mat-progress-spinner circle {   
+  stroke-linecap: round;
+}

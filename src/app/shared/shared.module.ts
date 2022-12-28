@@ -29,6 +29,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRippleModule} from '@angular/material/core';
 import { DialogCountdownComponent } from './dialog-countdown/dialog-countdown.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { DialogCountdownComponent } from './dialog-countdown/dialog-countdown.co
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatRippleModule
+    MatRippleModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     NavigationComponent,

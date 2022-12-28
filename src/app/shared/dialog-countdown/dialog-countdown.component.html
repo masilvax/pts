@@ -1,3 +1,9 @@
 <div *ngFor="let m of nextMessage">
     {{m}}
 </div>
+{{timeLeft}}
+<mat-spinner diameter="160" mode="determinate" [value]="timeLeft"></mat-spinner>
+
+<button mat-button (click)="startCountdown()">start</button>
+<button mat-button (click)="pauseCountdown()">pause</button>
+<button mat-button (click)="stopCountdown()">stop</button>
