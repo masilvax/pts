@@ -102,28 +102,22 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
       }
     })
 
+    let exercise = this.session.cwiczenia!.find(ex => ex.id === set.exerciseId)
+    if(doneArr.length === set.setIndex +1 && this.session.cwiczenia?.length === exercise?.kolejnosc && doneArr[set.setIndex] === 1){
+      alert('KONIEEEEEEC')//TUDU 
+      return
+    }
+
     if(doneArr[set.setIndex] === 1){
       const dialogRef = this.dialog.open(DialogCountdownComponent,{
         data: {exercises:this.session.cwiczenia, set: set},
         maxWidth: '95vw',
-        maxHeight: '90vh'
+        minWidth: '246px',
+        maxHeight: '90vh',
+        panelClass: 'counter-dialog',
+        disableClose: true
       })
     }
-/*     // całe to w komponencie do odliczania chyba zrobic - przekazac tam tablice cwiczen - this.session.cwiczenia
-    console.log(doneArr.length, set.setIndex)
-    let exercise = this.session.cwiczenia?.find(ex => ex.id === set.exerciseId)
-
-    if(doneArr.length > (set.setIndex+1)) {
-      console.log('NEXT EGZERSAJZ: ' + exercise?.nazwa_krotka + ' - ' + exercise?.powt[set.setIndex+1] + ' x ' + exercise?.ciezar[set.setIndex+1] + exercise?.jedn_intens + ' - ' + exercise?.przerwy_serie)
-      //sprawdzic czy poprzedni ma superseta
-    }
-
-    if (doneArr.length <= (set.setIndex+1)) {
-      let order = exercise?.kolejnosc
-      let nextExercise = this.session.cwiczenia?.find(ex => ex.kolejnosc === order!+1)
-      console.log('NEXT EGZERSAJZ: ' + nextExercise?.nazwa_krotka + ' - ' + nextExercise?.powt[0] + ' x ' + nextExercise?.ciezar[0] + nextExercise?.jedn_intens + ' - ' + exercise?.przerwa_po)
-      //sprawdzic czy nastepny ma superseta
-    } */
   }
 
   ngOnInit(): void {

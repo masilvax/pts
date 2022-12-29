@@ -1,9 +1,44 @@
-<div *ngFor="let m of nextMessage">
-    {{m}}
-</div>
-{{timeLeft}}
-<mat-spinner diameter="160" mode="determinate" [value]="timeLeft"></mat-spinner>
 
-<button mat-button (click)="startCountdown()">start</button>
-<button mat-button (click)="pauseCountdown()">pause</button>
-<button mat-button (click)="stopCountdown()">stop</button>
+    <mat-toolbar color="accent" class="header">
+        <h1>NEXT:</h1>
+        <button mat-icon-button [mat-dialog-close]="">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+
+<div class="content-wrapper">
+    <ul>
+        <li *ngFor="let m of nextMessage">
+            {{m}}
+        </li> 
+    </ul>
+    
+    <div class="counter-downer-wrapper">
+        <div class="counter-downer">
+            IN<br>
+            <span>{{timeLeft}}</span><br>
+            <!-- <span>{{percentageCountdown}}</span><br> -->
+            SEC.
+        </div>
+        <mat-spinner diameter="160" mode="determinate" [value]="percentageCountdown" color="accent"></mat-spinner>
+    </div>
+    
+    <div class="action-btns">
+        <button *ngIf="paused && timeLeft > 0" mat-button (click)="startCountdown()">
+            <mat-icon>motion_photos_on</mat-icon>
+            resume
+        </button>
+        <button *ngIf="!paused && timeLeft > 0" mat-button (click)="pauseCountdown()">
+            <mat-icon>motion_photos_paused</mat-icon>
+            pause
+        </button>
+        <button *ngIf="timeLeft <= 0" mat-button [mat-dialog-close]="">
+            <mat-icon>fitness_center</mat-icon>
+            HIT IT!
+        </button>
+        <button mat-button (click)="stopCountdown()">
+            <mat-icon>restore</mat-icon>
+            reset
+        </button>
+    </div>
+</div>

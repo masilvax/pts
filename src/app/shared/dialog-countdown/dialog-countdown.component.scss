@@ -1,0 +1,39 @@
+.content-wrapper {
+    padding: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+ul {
+    list-style: none;
+}
+li {
+    padding: 4px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.counter-downer-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.counter-downer {
+    text-align: center;
+    position: absolute;
+}
+.counter-downer span {
+    font-weight: bold;
+    font-size: 2em;
+}
+.action-btns {
+    display: flex;
+    justify-content: space-between;
+}

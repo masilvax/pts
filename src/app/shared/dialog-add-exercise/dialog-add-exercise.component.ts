@@ -50,6 +50,7 @@ export class DialogAddExerciseComponent implements OnInit {
     }
     console.log(this.data)
   }
+  
   removeSet() {
     if (this.data.serie > 1) {
       this.data.ciezar.pop();
@@ -64,13 +65,13 @@ export class DialogAddExerciseComponent implements OnInit {
     if(this.data.powt[i] < 99)
       this.data.powt[i]++
   }
+
   repsDown(i: number) {
     if(this.data.powt[i] > 1)
       this.data.powt[i]--
   }
-  intensityUp(i: number) {
 
-    console.log(this.data.ciezar)
+  intensityUp(i: number) {
     if(this.data.ciezar[i] === null || Number.isNaN(this.data.ciezar[i]) || this.data.ciezar[i].toString().length === 0){
       this.data.ciezar[i] = 0.25
       console.log(this.data.ciezar)
@@ -79,6 +80,7 @@ export class DialogAddExerciseComponent implements OnInit {
     if(this.data.ciezar[i] < 1000)
       this.data.ciezar[i] = this.data.ciezar[i] + 0.25
   }
+
   intensityDown(i: number) {
     if(this.data.ciezar[i] === null || Number.isNaN(this.data.ciezar[i]) || this.data.ciezar[i].toString().length === 0)
       this.data.ciezar[i] = 0.25
