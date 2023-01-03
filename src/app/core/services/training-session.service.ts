@@ -36,6 +36,15 @@ export class TrainingSessionService {
     return this.http.post<any>(this.ApiUrl+'/http_sesja.php',parapapampam)
   }
 
+  saveSession(trainingSession: TrainingSession): Observable<any> {
+    console.log(trainingSession)
+    const parapapampam = {
+      akcja: 'saveSession',
+      trainingSession
+    }
+    return this.http.post<any>(this.ApiUrl+'/http_sesja.php',parapapampam)
+  }
+  
 /*   superset(exercise: Exercise): Observable<any> {
     const parapapampam = {
       akcja: 'superset',

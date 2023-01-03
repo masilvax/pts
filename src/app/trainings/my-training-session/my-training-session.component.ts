@@ -9,6 +9,7 @@ import { ScrollService } from 'src/app/core/services/scroll.service';
 import { TrainingSessionService } from 'src/app/core/services/training-session.service';
 import { DialogAddExerciseComponent } from 'src/app/shared/dialog-add-exercise/dialog-add-exercise.component';
 import { DialogCountdownComponent } from 'src/app/shared/dialog-countdown/dialog-countdown.component';
+import { DialogAddTrainingSessionComponent } from '../dialog-add-training-session/dialog-add-training-session.component';
 
 @Component({
   selector: 'app-my-training-session',
@@ -20,6 +21,8 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
   //session$!: Observable<TrainingSession>
   sessionId$!: Observable<number>
   refreshSession$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+
+  alarm: boolean = false
 
   session!: TrainingSession
   //sessionId!: number
@@ -36,7 +39,28 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
       super()
   }
 
-  editExersise(exercise: Exercise) {
+  editSession(session: TrainingSession) {
+    let dateStr:string = session.data.replace(' 00:00:00','')
+    const dialogRef = this.dialog.open(DialogAddTrainingSessionComponent,{
+      data: {nazwa: session.nazwa,data: dateStr, action: ' Edit'}
+    })
+
+    dialogRef.afterClosed().subscribe((result: any) =>{
+      console.log(result)
+      if(result) {
+        this.srvc.saveSession({...session, ...result}).subscribe({
+          next: (response) =>{
+            console.log(response)
+            this.refreshSession$.next(true)
+            if(response.odp !== 'OK')
+              alert(response.odp)
+          }
+        })
+      }
+    })
+  }
+
+  editExersise(exercise: Exercise) {//also from tile
     console.log('edit: ', exercise)    
 
     const dialogRef = this.dialog.open(DialogAddExerciseComponent,{
@@ -85,6 +109,10 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
     }
   }
 
+  alarmFromToolbar(alarm: boolean) {
+    this.alarm = alarm
+  }
+
   doneUndone(set:any){
     let doneArr = JSON.parse(set.setsDone)
 
@@ -108,7 +136,7 @@ export class MyTrainingSessionComponent extends Destroyer implements OnInit {
       return
     }
 
-    if(doneArr[set.setIndex] === 1){
+    if(doneArr[set.setIndex] === 1 && this.alarm){ // if done and alarm
       const dialogRef = this.dialog.open(DialogCountdownComponent,{
         data: {exercises:this.session.cwiczenia, set: set},
         maxWidth: '95vw',

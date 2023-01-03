@@ -27,7 +27,9 @@
 }
 .nav-list-wrapper.handset{
   flex-direction: row-reverse;
+  backdrop-filter: blur(5px);
 }
+
 .toolbar.handset {
   width: 56px;
   height: 100%;

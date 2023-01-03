@@ -5,7 +5,7 @@
 
     <div *ngIf="session as ses">
 
-        <app-training-session-toolbar (actionEvent)="actionFromToolbar($event)" [backLink]="'../../'+ses.id_treningu"></app-training-session-toolbar>
+        <app-training-session-toolbar (actionEvent)="actionFromToolbar($event)" [backLink]="'../../'+ses.id_treningu" (alarmEvent)="alarmFromToolbar($event)"></app-training-session-toolbar>
 
         <div class="main-list">
             <div class="header" [ngClass]="(hideHeader$ | async) && (ses.cwiczenia!.length > 3) ? 'header-hidden' : ''">
@@ -16,7 +16,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="editSession(ses)">
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>

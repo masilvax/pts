@@ -74,10 +74,10 @@ $mat-theming-theme-dark: mat-dark-theme((
 .theme-light {
     @include angular-material-theme($mat-theming-theme);
 }
-.theme-dark .main-background {
+.theme-dark .main-background, body.theme-dark {
   background: linear-gradient(#212121, #e040fb)
 }
-.theme-light .main-background {
+.theme-light .main-background, body.theme-light {
   background: linear-gradient(whitesmoke, #00bcd4);
 }
 
@@ -85,9 +85,16 @@ $mat-theming-theme-dark: mat-dark-theme((
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-$darkColor:#282828;
+.theme-dark .nav-list-wrapper.handset{
+  background: #0008;
+}
+.theme-light .nav-list-wrapper.handset{
+  background: rgba(255, 255, 255, 0.8);
+}
+
+$darkColor:#28282888;
 $lessDarkColor:#2a2a2a;
-$lightColor:#f8f8f8;
+$lightColor:#ffffff80;
 
 .theme-dark .mat-card {
   background: $darkColor;

@@ -3,4 +3,5 @@ export interface ConfirmDialog {
   message: string;
   confirmCaption: string;
   cancelCaption: string;
+  alertOnly?:boolean;
 }

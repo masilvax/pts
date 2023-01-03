@@ -25,6 +25,13 @@ export class TrainingSessionToolbarComponent implements OnInit {
 
   @Input() backLink?:string
   @Output() actionEvent: EventEmitter<string> = new EventEmitter<string>()
+  alarm: boolean = false
+  @Output() alarmEvent:EventEmitter<boolean> = new EventEmitter<boolean>()
+
+  toggleAlarm() {
+    this.alarm = !this.alarm
+    this.alarmEvent.emit(this.alarm)
+  }
 
   ngOnInit(): void {
   }

@@ -133,6 +133,7 @@ export class TrainingCalendarComponent implements OnChanges {
       }
     });
   }
+  
   dateToString(date: Date) {
     return (
       date.getFullYear() +

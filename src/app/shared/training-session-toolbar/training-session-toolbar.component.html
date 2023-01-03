@@ -3,15 +3,16 @@
 
     <div *ngIf="!(isWebLandscape$ | async)">
   
-      <button mat-icon-button aria-label="move for previous day" [routerLink]="[backLink]">
+      <button mat-icon-button aria-label="back to calendar" [routerLink]="[backLink]" matTooltip="back to calendar">
         <mat-icon>arrow_back</mat-icon>
       </button>
   
-      <button mat-icon-button aria-label="move for next day" >
-        <mat-icon>alarm_on</mat-icon>
+      <button mat-icon-button aria-label="toggle alarm" (click)="toggleAlarm()" [matTooltip]="'turn counting & alarm ' + (alarm ? 'off' : 'on')">
+        <mat-icon *ngIf="alarm">alarm_on</mat-icon>
+        <mat-icon *ngIf="!alarm">alarm_off</mat-icon>
       </button>
   
-      <button mat-icon-button aria-label="cadd new exercise" (click)="actionEvent.emit('add')">
+      <button mat-icon-button aria-label="add new exercise" (click)="actionEvent.emit('add')" matTooltip="add new exercise">
         <mat-icon>add</mat-icon>
       </button>
   
@@ -20,12 +21,14 @@
   
     <div *ngIf="isWebLandscape$ | async">
   
-      <button mat-button aria-label="move for previous day" [routerLink]="[backLink]">
+      <button mat-button aria-label="back to calendar" [routerLink]="[backLink]">
         <mat-icon>arrow_back</mat-icon> back to calendar
       </button>
   
-      <button mat-button aria-label="move for next day">
-        <mat-icon>alarm_on</mat-icon> turn on counting and alarm
+      <button mat-button aria-label="toggle alarm" (click)="toggleAlarm()">
+        <mat-icon *ngIf="alarm">alarm_on</mat-icon>
+        <mat-icon *ngIf="!alarm">alarm_off</mat-icon>
+        turn counting & alarm {{(alarm ? 'off' : 'on')}}
       </button>
   
       <button mat-button aria-label="add new exercise" (click)="actionEvent.emit('add')">

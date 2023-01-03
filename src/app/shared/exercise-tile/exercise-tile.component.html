@@ -98,7 +98,7 @@
                 <span>Delete</span>
             </button>
         </mat-menu>
-        <button mat-icon-button aria-label="description" *ngIf="exercise.nazwa!==''">
+        <button mat-icon-button aria-label="description" *ngIf="exercise.nazwa!==''" (click)="showInfo()">
             <mat-icon>info</mat-icon>
         </button>
     </mat-card-actions>

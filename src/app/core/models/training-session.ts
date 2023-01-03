@@ -4,6 +4,6 @@ export interface TrainingSession {
     id: number;
     nazwa: string;
     data:string;
-    cwiczenia?:Exercise[],
-    id_treningu?:number
+    cwiczenia?:Exercise[];
+    id_treningu:number;
 }

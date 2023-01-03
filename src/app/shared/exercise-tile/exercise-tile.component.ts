@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Exercise } from 'src/app/core/models/exercise';
+import { ConfirmDialogService } from 'src/app/core/services/confirm-dialog.service';
 
 interface OneSet {
   exerciseId:number,
@@ -28,7 +29,7 @@ export class ExerciseTileComponent implements OnInit {
 
   @Output() doneEvent: EventEmitter<OneSet> = new EventEmitter<OneSet>()
 
-  constructor() {
+  constructor(private confirmDialogSrvc: ConfirmDialogService) {
     
   }
 
@@ -58,6 +59,16 @@ export class ExerciseTileComponent implements OnInit {
       setIndex: setIndex
     };
     this.doneEvent.emit(oneSet)
+  }
+
+  showInfo() {
+    this.confirmDialogSrvc.confirmDialog({
+      title: this.exercise.nazwa_krotka,
+      message: this.exercise.nazwa!,
+      cancelCaption:'No',
+      confirmCaption:'Close',
+      alertOnly:true
+    }).subscribe()
   }
 
 }

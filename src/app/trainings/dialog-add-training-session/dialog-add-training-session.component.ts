@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './dialog-add-training-session.component.html',
   styleUrls: ['./dialog-add-training-session.component.scss']
 })
+/* no save to DB here. when adding new we need train-session id for url navigation */
 export class DialogAddTrainingSessionComponent {
 
   constructor(
